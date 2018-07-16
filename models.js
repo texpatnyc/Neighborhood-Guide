@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
 	photo: String
 });
 
-const restaurntSchema = mongoose.Schema({
+const restaurantSchema = mongoose.Schema({
 	id: String,
 	name: String,
 	cuisine: String,
@@ -65,5 +65,82 @@ const commentSchema = mongoose.Schema({
 	comment: String
 });
 
-//
+// Virtuals
+
+restaurantSchema.virtual('addressString').get(function() {
+  return `${this.address.building} ${this.address.street}`.trim();
+});
+
+nightlifeSchema.virtual('addressString').get(function() {
+  return `${this.address.building} ${this.address.street}`.trim();
+});
+
+servicesSchema.virtual('addressString').get(function() {
+  return `${this.address.building} ${this.address.street}`.trim();
+});
+
+// Instance Methods
+
+restaurantSchema.methods.serialize = () => {
+	return {
+		id: this._id,
+		name: this.name,
+		cuisine: this.cuisine,
+		address: this.addressString,
+		description: this.description
+	};
+}
+
+nightlifeSchema.methods.serialize = () => {
+	return {
+		id: this._id,
+		name: this.name,
+		typeOfVenue: this.typeOfVenue,
+		address: this.addressString,
+		description: this.description
+	};
+}
+
+servicesSchema.methods.serialize = () => {
+	return {
+		id: this._id,
+		name: this.name,
+		typeOfService: this.typeOfService,
+		address: this.addressString,
+		description: this.description
+	};
+}
+
+const Restaurant = mongoose.model('Restaurant', restaurantSchema);
+const Nightlife = mongoose.model('Nightlife', nightlifeSchema);
+const Service = mongoose.model('Service', servicesSchema);
+
+module.exports = {Restaurant, Nightlife, Service};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
