@@ -1,0 +1,34 @@
+{
+  "name": "neighborhood-guide",
+  "version": "1.0.0",
+  "description": "Interactive neighborhood guide for short term rental property",
+  "main": "config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.2.3",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "faker": "^4.1.0",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/texpatnyc/Neighborhood-Guide.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/texpatnyc/Neighborhood-Guide/issues"
+  },
+  "homepage": "https://github.com/texpatnyc/Neighborhood-Guide#readme"
+}
