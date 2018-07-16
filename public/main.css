@@ -1,0 +1,46 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-family: 'Roboto', sans-serif;
+	color: black;
+}
+
+header {
+	text-align: center;
+	width: 100%;
+}
+
+#site-description {
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+footer {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.container {
+	display: flex;
+	width: 90%;
+	max-width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.box {
+	display: inline;
+	width: 25%;
+	text-align: center;
+	align-content: center;
+}
+
+.main-icon {
+	width: 150px;
+}
