@@ -2,7 +2,9 @@
 
 const mongoose = require('mongoose');
 
-// Schemas
+//------------------------------------------------------------
+//Schemas
+//------------------------------------------------------------
 
 const userSchema = mongoose.Schema({
 	id: String,
@@ -65,7 +67,9 @@ const commentSchema = mongoose.Schema({
 	comment: String
 });
 
-// Virtuals
+//------------------------------------------------------------
+//Virtuals
+//------------------------------------------------------------
 
 restaurantSchema.virtual('addressString').get(function() {
   return `${this.address.building} ${this.address.street}`.trim();
@@ -79,7 +83,9 @@ servicesSchema.virtual('addressString').get(function() {
   return `${this.address.building} ${this.address.street}`.trim();
 });
 
-// Instance Methods
+//------------------------------------------------------------
+//Instance Methods
+//------------------------------------------------------------
 
 restaurantSchema.methods.serialize = () => {
 	return {
