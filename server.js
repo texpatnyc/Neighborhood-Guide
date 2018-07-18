@@ -90,11 +90,97 @@ app.get('/services/:id', (req, res) => {
 		});
 });
 
+app.get('/comments', (req, res) => {
+
+	// This is needs to get all comments for a specific recommendation by id
+
+})
+
 
 //------------------------------------------------------------
 //POST Requests
 //------------------------------------------------------------
 
+app.post('/restaurants', (req, res) => {
+	const requiredFields = ['name', 'cuisine', 'borough', 'address'];
+	for (let i=0; i<requiredFields.length; i++) {
+		const field = requiredFields[i];
+		if (!(field in req.body)) {
+			const message = `Missing \`${field}\` in request body`;
+			console.error(message);
+			return res.status(400).send(message);
+		}
+	}
+
+	Restaurant
+		.create({
+			name: req.body.name,
+			borough: req.body.borough,
+			cuisine: req.body.cuisine,
+			description: req.body.description,
+			address: req.body.address,
+			addedBy: req.body.addedBy
+		})
+		.then(restaurant => res.status(201).json(restaurant.serialize()))
+		.catch(err => {
+			console.error(err);
+			res.status(500).json({message: 'Internal Server Error'});
+		});
+});
+
+app.post('/nightlife', (req, res) => {
+	const requiredFields = ['name', 'typeOfVenue', 'borough', 'address'];
+	for (let i=0; i<requiredFields.length; i++) {
+		const field = requiredFields[i];
+		if (!(field in req.body)) {
+			const message = `Missing \`${field}\` in request body`;
+			console.error(message);
+			return res.status(400).send(message);
+		}
+	}
+
+	Nightlife
+		.create({
+			name: req.body.name,
+			borough: req.body.borough,
+			typeOfVenue: req.body.cuisine,
+			description: req.body.description,
+			address: req.body.address,
+			addedBy: req.body.addedBy
+		})
+		.then(nightlife => res.status(201).json(nightlife.serialize()))
+		.catch(err => {
+			console.error(err);
+			res.status(500).json({message: 'Internal Server Error'});
+		});
+});
+
+app.post('/services', (req, res) => {
+	const requiredFields = ['name', 'typeOfService', 'borough', 'address'];
+	for (let i=0; i<requiredFields.length; i++) {
+		const field = requiredFields[i];
+		if (!(field in req.body)) {
+			const message = `Missing \`${field}\` in request body`;
+			console.error(message);
+			return res.status(400).send(message);
+		}
+	}
+
+	Service
+		.create({
+			name: req.body.name,
+			borough: req.body.borough,8
+			typeOfService: req.body.cuisine,
+			description: req.body.description,
+			address: req.body.address,
+			addedBy: req.body.addedBy
+		})
+		.then(service => res.status(201).json(service.serialize()))
+		.catch(err => {
+			console.error(err);
+			res.status(500).json({message: 'Internal Server Error'});
+		});
+});
 
 
 
@@ -102,6 +188,69 @@ app.get('/services/:id', (req, res) => {
 
 
 
+
+
+//------------------------------------------------------------
+//PUT Requests
+//------------------------------------------------------------
+
+
+
+
+
+
+//------------------------------------------------------------
+//DELETE Requests
+//------------------------------------------------------------
+
+
+
+
+
+
+//------------------------------------------------------------
+//Server Functions
+//------------------------------------------------------------
+
+let server;
+
+function runServer(databaseUrl, port = PORT) {
+	return new Promise((resolve, reject) => {
+		mongoose.connect(databaseUrl, err => {
+			if (err) {
+				return reject(err);
+			}
+			server = app.listen(port, () => {
+				console.log(`Your app is listening on port ${port}`);
+				resolve();
+			})
+				.on('error', err => {
+					mongoose.disconnect();
+					reject(err);
+				});
+		});
+	});
+}
+
+function closeServer() {
+	return mongoose.disconnect().then(() => {
+		return new Promise((resolve, reject) => {
+			console.log('Closing Server');
+			server.close(err => {
+				if (err) {
+				return reject(err);
+			}
+			resolve();
+			});
+		});
+	});
+}
+
+if (require.main === module) {
+	runServer(DATABASE_URL).catch(err => console.error(err));
+}
+
+module.exports = {app, runServer, closeServer};
 
 
 

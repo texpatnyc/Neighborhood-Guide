@@ -21,6 +21,7 @@ const restaurantSchema = mongoose.Schema({
 	id: String,
 	name: String,
 	cuisine: String,
+	borough: String,
 	address: {
 		building: String,
 		coord: [String],
@@ -35,6 +36,7 @@ const nightlifeSchema = mongoose.Schema({
 	id: String,
 	name: String,
 	typeOfVenue: String,
+	borough: String,
 	address: {
 		building: String,
 		coord: [String],
@@ -49,6 +51,7 @@ const servicesSchema = mongoose.Schema({
 	id: String,
 	name: String,
 	typeOfService: String,
+	borough: String,
 	address: {
 		building: String,
 		coord: [String],
@@ -92,6 +95,7 @@ restaurantSchema.methods.serialize = () => {
 		id: this._id,
 		name: this.name,
 		cuisine: this.cuisine,
+		borough: this.borough,
 		address: this.addressString,
 		description: this.description
 	};
@@ -102,6 +106,7 @@ nightlifeSchema.methods.serialize = () => {
 		id: this._id,
 		name: this.name,
 		typeOfVenue: this.typeOfVenue,
+		borough: this.borough,
 		address: this.addressString,
 		description: this.description
 	};
@@ -112,6 +117,7 @@ servicesSchema.methods.serialize = () => {
 		id: this._id,
 		name: this.name,
 		typeOfService: this.typeOfService,
+		borough: this.borough,
 		address: this.addressString,
 		description: this.description
 	};
@@ -120,8 +126,10 @@ servicesSchema.methods.serialize = () => {
 const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 const Nightlife = mongoose.model('Nightlife', nightlifeSchema);
 const Service = mongoose.model('Service', servicesSchema);
+const Comment = mongoose.model('Comment', commentSchema);
+const User = mongoose.model('User', userSchema);
 
-module.exports = {Restaurant, Nightlife, Service};
+module.exports = {Restaurant, Nightlife, Service, Comment, User};
 
 
 
