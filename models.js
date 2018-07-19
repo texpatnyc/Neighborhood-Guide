@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 //------------------------------------------------------------
 
 const userSchema = mongoose.Schema({
-	id: String,
 	firstName: String,
 	lastName: String,
 	origin: {
@@ -17,23 +16,27 @@ const userSchema = mongoose.Schema({
 	photo: String
 });
 
+// add password verification methods
+
 const restaurantSchema = mongoose.Schema({
-	id: String,
 	name: String,
 	cuisine: String,
 	borough: String,
 	address: {
 		building: String,
-		coord: [String],
+		location: {
+			lat: Number,
+			long: Number
+		},
 		street: String,
 		zipcode: String,
 	},
 	description: String,
-	addedBy: String
+	addedBy: String,
+	comments: [commentSchema]
 });
 
 const nightlifeSchema = mongoose.Schema({
-	id: String,
 	name: String,
 	typeOfVenue: String,
 	borough: String,
@@ -48,7 +51,6 @@ const nightlifeSchema = mongoose.Schema({
 });
 
 const servicesSchema = mongoose.Schema({
-	id: String,
 	name: String,
 	typeOfService: String,
 	borough: String,
@@ -63,8 +65,6 @@ const servicesSchema = mongoose.Schema({
 });
 
 const commentSchema = mongoose.Schema({
-	id: String,
-	listingId: String,
 	addedBy: String,
 	date: Date,
 	comment: String

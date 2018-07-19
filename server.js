@@ -33,12 +33,14 @@ app.get('/restaurants', (req, res) => {
 app.get('/restaurants/:id', (req, res) => {
 	Restaurant
 		.findById(req.params.id)
-		.then(restaurant => res.json(restaurant.serialize()))
+		.then(res.json)
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({message: 'Internal Server Error'});
 		});
 });
+
+//EJS rendering
 
 app.get('/nightlife', (req, res) => {
 	Nightlife

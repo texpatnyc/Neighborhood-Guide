@@ -44,3 +44,14 @@ footer {
 .main-icon {
 	width: 150px;
 }
+
+.formWrapper {
+	margin-left: auto;
+	margin-right: auto;
+	align-content: center;
+	text-align: center;
+}
+
+#search-term {
+	width: 300px;
+}

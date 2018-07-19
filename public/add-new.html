@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset="utf-8">
+	<meta name='viewport' content="width=device-width">
+
+	<title>Neighborhood Guide - Add New Recommendation</title>
+	<meta name="description" content="Interactive Neighborhood Guide for the East Village">
+
+	<link rel="stylesheet" type="text/css" href="./main.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+</head>
+
+<body>
+	<header role='banner'>
+		<h1>Neighborhood Guide</h1>
+		<h2>Add New Recommendation</h2>
+	</header>
+
+	<main role='main'>
+		<div class='formWrapper'>
+			<div class='formInstrucions'>Enter the name of the recommendation you'd like to add:</div>
+			<form id='search-form'>
+				<input type='text' placeholder='Cool new spot...' id='search-term'>
+				<input type="submit" name="submit">
+			</form>
+		</div>
+
+		<div class='search-results'>
+
+
+		</div>
+
+	</main>
+
+
+
+	<footer>
+		&copy Kyle Combs 2018<br>
+		combskyle@gmail.com
+	</footer>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="./index.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaTY5FdfkJgHZpvxf9OwEdN6bRlgeS7TY&libraries=places&callback=activatePlacesSearch" async defer></script>
+
+
+
+</body>
+</html>
