@@ -33,7 +33,7 @@ const restaurantSchema = mongoose.Schema({
 	},
 	description: String,
 	addedBy: String,
-	comments: [commentSchema]
+	// comments: [commentSchema]
 });
 
 const nightlifeSchema = mongoose.Schema({

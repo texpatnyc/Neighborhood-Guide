@@ -145,7 +145,7 @@ app.post('/nightlife', (req, res) => {
 		.create({
 			name: req.body.name,
 			borough: req.body.borough,
-			typeOfVenue: req.body.cuisine,
+			typeOfVenue: req.body.typeOfVenue,
 			description: req.body.description,
 			address: req.body.address,
 			addedBy: req.body.addedBy
@@ -171,8 +171,8 @@ app.post('/services', (req, res) => {
 	Service
 		.create({
 			name: req.body.name,
-			borough: req.body.borough,8
-			typeOfService: req.body.cuisine,
+			borough: req.body.borough,
+			typeOfService: req.body.typeOfService,
 			description: req.body.description,
 			address: req.body.address,
 			addedBy: req.body.addedBy
@@ -186,17 +186,81 @@ app.post('/services', (req, res) => {
 
 
 
-
-
-
-
-
-
 //------------------------------------------------------------
 //PUT Requests
 //------------------------------------------------------------
 
+app.put('/restaurants/:id', (req, res) => {
+	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+		const message = (
+			`Request path id (${req.params.id}) and request body id ` +
+			`(${req.body.id}) must match`);
+		console.error(message);
+		return res.status(400).json({message: message});
+	}
+	
+	const toUpdate = {};
+	const updateableFields = ['name', 'borough', 'cuisine', 'address', 'description'];
 
+	updateableFields.forEach(field => {
+		if (field in req.body) {
+			toUpdate[field] = req.body[field];
+		}
+	});
+
+	Restaurant
+		.findByIdAndUpdate(req.params.id, {$set: toUpdate})
+		.then(restaurant => res.status(204).end())
+		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+});
+
+app.put('/nightlife/:id', (req, res) => {
+	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+		const message = (
+			`Request path id (${req.params.id}) and request body id ` +
+			`(${req.body.id}) must match`);
+		console.error(message);
+		return res.status(400).json({message: message});
+	}
+	
+	const toUpdate = {};
+	const updateableFields = ['name', 'borough', 'typeOfVenue', 'address', 'description'];
+
+	updateableFields.forEach(field => {
+		if (field in req.body) {
+			toUpdate[field] = req.body[field];
+		}
+	});
+
+	Nightlife
+		.findByIdAndUpdate(req.params.id, {$set: toUpdate})
+		.then(nightlife => res.status(204).end())
+		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+});
+
+app.put('/services/:id', (req, res) => {
+	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+		const message = (
+			`Request path id (${req.params.id}) and request body id ` +
+			`(${req.body.id}) must match`);
+		console.error(message);
+		return res.status(400).json({message: message});
+	}
+	
+	const toUpdate = {};
+	const updateableFields = ['name', 'borough', 'typeOfService', 'address', 'description'];
+
+	updateableFields.forEach(field => {
+		if (field in req.body) {
+			toUpdate[field] = req.body[field];
+		}
+	});
+
+	Service
+		.findByIdAndUpdate(req.params.id, {$set: toUpdate})
+		.then(service => res.status(204).end())
+		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+});
 
 
 
@@ -205,7 +269,26 @@ app.post('/services', (req, res) => {
 //DELETE Requests
 //------------------------------------------------------------
 
+app.delete('/restaurants/:id', (req, res) => {
+	Restaurant
+		.findByIdAndRemove(req.params.id)
+		.then(restaurant => res.status(204).end())
+		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+});
 
+app.delete('/nightlife/:id', (req, res) => {
+	Restaurant
+		.findByIdAndRemove(req.params.id)
+		.then(nightlife => res.status(204).end())
+		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+});
+
+app.delete('/services/:id', (req, res) => {
+	Restaurant
+		.findByIdAndRemove(req.params.id)
+		.then(service => res.status(204).end())
+		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+});
 
 
 
