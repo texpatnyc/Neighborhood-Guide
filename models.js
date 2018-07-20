@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 //Schemas
 //------------------------------------------------------------
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
 	firstName: String,
 	lastName: String,
 	origin: {
@@ -18,7 +18,13 @@ const userSchema = mongoose.Schema({
 
 // add password verification methods
 
-const restaurantSchema = mongoose.Schema({
+const commentSchema = new mongoose.Schema({
+	addedBy: String,
+	date: Date,
+	comment: String
+});
+
+const restaurantSchema = new mongoose.Schema({
 	name: String,
 	cuisine: String,
 	borough: String,
@@ -33,10 +39,10 @@ const restaurantSchema = mongoose.Schema({
 	},
 	description: String,
 	addedBy: String,
-	// comments: [commentSchema]
+	comments: [commentSchema]
 });
 
-const nightlifeSchema = mongoose.Schema({
+const nightlifeSchema = new mongoose.Schema({
 	name: String,
 	typeOfVenue: String,
 	borough: String,
@@ -47,10 +53,11 @@ const nightlifeSchema = mongoose.Schema({
 		zipcode: String
 	},
 	description: String,
-	addedBy: String
+	addedBy: String,
+	comments: [commentSchema]
 });
 
-const servicesSchema = mongoose.Schema({
+const servicesSchema = new mongoose.Schema({
 	name: String,
 	typeOfService: String,
 	borough: String,
@@ -61,14 +68,10 @@ const servicesSchema = mongoose.Schema({
 		zipcode: String
 	},
 	description: String,
-	addedBy: String
+	addedBy: String,
+	comments: [commentSchema]
 });
 
-const commentSchema = mongoose.Schema({
-	addedBy: String,
-	date: Date,
-	comment: String
-});
 
 //------------------------------------------------------------
 //Virtuals
@@ -90,36 +93,39 @@ servicesSchema.virtual('addressString').get(function() {
 //Instance Methods
 //------------------------------------------------------------
 
-restaurantSchema.methods.serialize = () => {
+restaurantSchema.methods.serialize = function() {
 	return {
 		id: this._id,
 		name: this.name,
 		cuisine: this.cuisine,
 		borough: this.borough,
 		address: this.addressString,
-		description: this.description
+		description: this.description,
+		addedBy: this.addedBy
 	};
 }
 
-nightlifeSchema.methods.serialize = () => {
+nightlifeSchema.methods.serialize = function() {
 	return {
 		id: this._id,
 		name: this.name,
 		typeOfVenue: this.typeOfVenue,
 		borough: this.borough,
 		address: this.addressString,
-		description: this.description
+		description: this.description,
+		addedBy: this.addedBy
 	};
 }
 
-servicesSchema.methods.serialize = () => {
+servicesSchema.methods.serialize = function() {
 	return {
 		id: this._id,
 		name: this.name,
 		typeOfService: this.typeOfService,
 		borough: this.borough,
 		address: this.addressString,
-		description: this.description
+		description: this.description,
+		addedBy: this.addedBy
 	};
 }
 

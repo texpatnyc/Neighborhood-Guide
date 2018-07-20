@@ -2,7 +2,7 @@
   "name": "neighborhood-guide",
   "version": "1.0.0",
   "description": "Interactive neighborhood guide for short term rental property",
-  "main": "config.js",
+  "main": "server.js",
   "directories": {
     "test": "test"
   },
