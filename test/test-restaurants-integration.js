@@ -197,11 +197,6 @@ describe('Restaurants API resource', function() {
 				});
 		});
 	});
-
-
-
-
-
 })
 
 
