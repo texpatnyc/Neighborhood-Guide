@@ -277,14 +277,14 @@ app.delete('/restaurants/:id', (req, res) => {
 });
 
 app.delete('/nightlife/:id', (req, res) => {
-	Restaurant
+	Nightlife
 		.findByIdAndRemove(req.params.id)
 		.then(nightlife => res.status(204).end())
 		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
 });
 
 app.delete('/services/:id', (req, res) => {
-	Restaurant
+	Service
 		.findByIdAndRemove(req.params.id)
 		.then(service => res.status(204).end())
 		.catch(err => res.status(500).json({message: 'Internal Server Error'}));

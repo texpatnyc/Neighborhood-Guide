@@ -186,7 +186,6 @@ describe('Nightlife API resource', function() {
 				.findOne()
 				.then(function(_nightlife) {
 					nightlife = _nightlife;
-					console.log(nightlife);
 					return chai.request(app).delete(`/nightlife/${nightlife.id}`);
 				})
 				.then(function(res) {
@@ -194,7 +193,6 @@ describe('Nightlife API resource', function() {
 					return Nightlife.findById(nightlife.id);
 				})
 				.then(function(_nightlife) {
-					console.log(_nightlife);
 					expect(_nightlife).to.be.null;
 				});
 		});
