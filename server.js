@@ -2,6 +2,7 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
 mongoose.Promise = global.Promise;
 
@@ -15,6 +16,17 @@ const app = express();
 
 app.use(express.static('public'));
 app.use(express.json());
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.get('/', (req, res) => {
+	res.render('index');
+});
+
+// app.get('/restaurants', (req, res) => {
+// 	res.redirect('restaurants')
+// })
 
 app.use('/restaurants', restaurantRouter);
 app.use('/nightlife', nightlifeRouter);

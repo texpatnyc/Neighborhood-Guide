@@ -5,8 +5,6 @@ const router = express.Router();
 
 const {Nightlife} = require('../models');
 
- 
-
 router.get('/', (req, res) => {
 	Nightlife
 		.find()

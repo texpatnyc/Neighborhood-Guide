@@ -26,7 +26,7 @@ footer {
   text-align: center;
 }
 
-.container {
+.nav {
 	display: flex;
 	width: 90%;
 	max-width: 1000px;

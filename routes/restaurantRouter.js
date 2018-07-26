@@ -5,9 +5,6 @@ const router = express.Router();
 
 const {Restaurant} = require('../models');
 
-
-
-
 router.get('/', (req, res) => {
 	Restaurant
 		.find()
