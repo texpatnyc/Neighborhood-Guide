@@ -17,23 +17,24 @@ function activatePlacesSearch() {
 
 
 
-$('.nav').on('click', 'a', (e) => {
-	e.preventDefault();
-	if ($(e.currentTarget).hasClass('restaurantIcon')) {
-		fetch('/restaurants')
-			.then(console.log)
-			.catch(console.error)
-	}
-	if ($(e.currentTarget).hasClass('nightlifeIcon')) {
-		fetch('/nightlife')
-			.then(console.log)
-			.catch(console.error)
-	}
-	if ($(e.currentTarget).hasClass('servicesIcon')) {
-		fetch('/services')
-			.then(console.log)
-			.catch(console.error)
-	}
+// $('.nav').on('click', 'a', (e) => {
+// 	e.preventDefault();
+// 	if ($(e.currentTarget).hasClass('restaurantIcon')) {
+// 		fetch('/restaurants')
+// 			.then(console.log)
+// 			.catch(console.error)
+// 	}
+// 	if ($(e.currentTarget).hasClass('nightlifeIcon')) {
+// 		fetch('/nightlife')
+// 			.then(console.log)
+// 			.catch(console.error)
+// 	}
+// 	if ($(e.currentTarget).hasClass('servicesIcon')) {
+// 		fetch('/services')
+// 			.then(console.log)
+// 			.catch(console.error)
+// 	}
 
 
-})
+// })
+

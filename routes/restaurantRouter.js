@@ -9,15 +9,20 @@ router.get('/', (req, res) => {
 	Restaurant
 		.find()
 		.then(restaurants => {
-			res.json({
-				restaurants: restaurants.map(
-					(restaurant) => restaurant.serialize())
-			});
+			res.render('restaurants', {restaurants: restaurants})
+			// res.json({
+			// 	restaurants: restaurants.map(
+			// 		(restaurant) => restaurant.serialize())
+			// });
 		})
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({message: 'Internal Server Error'});
 		});
+});
+
+router.get('/add-new', (req, res) => {
+	res.render('add-new-restaurant')
 });
 
 router.get('/:id', (req, res) => {
@@ -31,12 +36,11 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	const requiredFields = ['name', 'cuisine', 'borough', 'address'];
+	const requiredFields = ['name', 'cuisine', 'borough', 'building', 'street', 'zipCode', 'description', 'addedBy'];
 	for (let i=0; i<requiredFields.length; i++) {
 		const field = requiredFields[i];
 		if (!(field in req.body)) {
 			const message = `Missing \`${field}\` in request body`;
-			console.error(message);
 			return res.status(400).send(message);
 		}
 	}
@@ -47,7 +51,11 @@ router.post('/', (req, res) => {
 			borough: req.body.borough,
 			cuisine: req.body.cuisine,
 			description: req.body.description,
-			address: req.body.address,
+			address: {
+				building: req.body.building,
+				street: req.body.street,
+				zipCode: req.body.zipCode
+			},
 			addedBy: req.body.addedBy
 		})
 		.then(restaurant => res.status(201).json(restaurant.serialize()))

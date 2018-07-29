@@ -3,6 +3,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
 
@@ -15,18 +16,16 @@ const serviceRouter = require('./routes/serviceRouter');
 const app = express();
 
 app.use(express.static('public'));
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false })); 
 
-app.set('views', path.join(__dirname, 'views'));
+
+app.set('views', path.join(__dirname, 'views/pages'));
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
 	res.render('index');
 });
-
-// app.get('/restaurants', (req, res) => {
-// 	res.redirect('restaurants')
-// })
 
 app.use('/restaurants', restaurantRouter);
 app.use('/nightlife', nightlifeRouter);
