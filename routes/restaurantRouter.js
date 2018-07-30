@@ -10,10 +10,6 @@ router.get('/', (req, res) => {
 		.find()
 		.then(restaurants => {
 			res.render('restaurants', {restaurants: restaurants})
-			// res.json({
-			// 	restaurants: restaurants.map(
-			// 		(restaurant) => restaurant.serialize())
-			// });
 		})
 		.catch(err => {
 			console.error(err);
@@ -58,7 +54,9 @@ router.post('/', (req, res) => {
 			},
 			addedBy: req.body.addedBy
 		})
-		.then(restaurant => res.status(201).json(restaurant.serialize()))
+		// .then(restaurant => res.status(201).json(restaurant.serialize()))
+		.then(req.flash('success', 'Restaurant Successfully Added!'))
+		.then(res.redirect('restaurants'))
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({message: 'Internal Server Error'});
