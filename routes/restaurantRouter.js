@@ -22,9 +22,10 @@ router.get('/add-new', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
+	console.log(req.params);
 	Restaurant
 		.findById(req.params.id)
-		.then(res.json)
+		.then(restaurant => res.json(restaurant))
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({message: 'Internal Server Error'});
@@ -54,7 +55,6 @@ router.post('/', (req, res) => {
 			},
 			addedBy: req.body.addedBy
 		})
-		// .then(restaurant => res.status(201).json(restaurant.serialize()))
 		.then(req.flash('success', 'Restaurant Successfully Added!'))
 		.then(res.redirect('restaurants'))
 		.catch(err => {

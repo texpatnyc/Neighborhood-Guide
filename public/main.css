@@ -52,6 +52,46 @@ footer {
 	text-align: center;
 }
 
+.addNewForm {
+	margin-left: auto;
+	margin-right: auto;
+	align-content: center;
+	text-align: center;
+}
+
 #search-term {
 	width: 300px;
 }
+
+.full-list a {
+	text-decoration: none;
+	display: block;
+	border-top: 1px solid black
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

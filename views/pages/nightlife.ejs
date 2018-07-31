@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang='en'>
-<head>
-	<meta charset="utf-8">
-	<meta name='viewport' content="width=device-width">
-
-	<title>Neighborhood Guide</title>
-	<meta name="description" content="Interactive Neighborhood Guide for the East Village">
-
-	<link rel="stylesheet" type="text/css" href="./main.css">
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-</head>
+<% include ../partials/head %>
 
 <body>
 	<header role='banner'>
@@ -31,15 +20,20 @@
 				<h2>Services</h2>
 			</a>
 		</div>
+
+	<%- messages('message', locals) %>
+
+	<div class="full-list">
+	  <% nightlife.forEach((nightlife) => { %>
+	  	<hr>
+	    <span class="item-name"><%= nightlife.name %> (<%= nightlife.borough %>)</span><br>
+	    <span class="item-typeOfVenue"><%= nightlife.typeOfVenue %></span><br>
+	    <span class="item-address"><%= nightlife.addressString %></span><br>
+	    <span class="item-description"><%= nightlife.description %></span><br>
+	    <span class="item-addedBy">Added by: <%= nightlife.addedBy %></span>
+	  <% }) %>
+	</div>
+	
 	</main>
 
-	<footer>
-		&copy Kyle Combs 2018<br>
-		combskyle@gmail.com
-	</footer>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="./index.js"></script>
-
-</body>
-</html>
+<% include ../partials/footer %>

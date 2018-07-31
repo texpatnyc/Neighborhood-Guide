@@ -5,22 +5,20 @@ const router = express.Router();
 
 const {Service} = require('../models');
 
-
-
-
 router.get('/', (req, res) => {
 	Service
 		.find()
 		.then(services => {
-			res.json({
-				services: services.map(
-					(service) => service.serialize())
-			});
+			res.render('services', {services: services})
 		})
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({message: 'Internal Server Error'});
 		});
+});
+
+router.get('/add-new', (req, res) => {
+	res.render('add-new-service')
 });
 
 router.get('/:id', (req, res) => {
@@ -50,10 +48,15 @@ router.post('/', (req, res) => {
 			borough: req.body.borough,
 			typeOfService: req.body.typeOfService,
 			description: req.body.description,
-			address: req.body.address,
+			address: {
+				building: req.body.building,
+				street: req.body.street,
+				zipCode: req.body.zipCode
+			},
 			addedBy: req.body.addedBy
 		})
-		.then(service => res.status(201).json(service.serialize()))
+		.then(req.flash('success', 'Service Successfully Added!'))
+		.then(res.redirect('services'))
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({message: 'Internal Server Error'});

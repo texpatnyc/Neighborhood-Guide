@@ -1,0 +1,53 @@
+<% include ../partials/head %>
+
+<body>
+	<header role='banner'>
+		<h1>Neighborhood Guide - Add New Service</h1>
+	</header>
+
+	<main role='main'>
+		<div class='nav'>
+			<a href='/restaurants' class='box restaurantIcon'>
+				<img src="/images/grid-world.png" class='main-icon'>
+				<h2>Restaurants</h2>
+			</a>
+			<a href='/nightlife' class='box nightlifeIcon'>
+				<img src="/images/grid-world.png" class='main-icon'>
+				<h2>Nightlife</h2>
+			</a>
+			<a href='/services' class='box servicesIcon'>
+				<img src="/images/grid-world.png" class='main-icon'>
+				<h2>Services</h2>
+			</a>
+		</div> 
+
+		<div id="formWrapper">
+			<div class="instructions">Search for the service you'd like to add:</div><br>
+			<form id="search-form">
+				<input type="text" placeholder="eg. Jack's Cleaners" id="search-term" aria-label="service-name">
+				<input type="submit" name="submit">
+			</form>
+		</div>
+
+		<hr width='90%'>
+
+		<form class='addNewForm' method='post' action='/nightlife'>
+
+		<% include ../partials/add-new-form-part-1 %>
+
+			<label for='typeOfService' class='form-label'> Type of Service: </label>
+			<select id='typeOfService' name='typeOfService' class='addNewDropdown'>
+				<option value=''></option>
+				<option value='Grocery Store'>Grocery Store</option>
+				<option value='Laundry / Dry Cleaner'>Laundry / Dry Cleaner</option>
+				<option value='Massage'>Massage</option>
+				<option value='Bodega (Convenience Store)'>Bodega (Convenience Store)</option>
+				<option value='Hospital / Clinic'>Hospital / Clinic</option>
+				<option value='Other'>Other</option>
+			</select><br>	
+
+		<% include ../partials/add-new-form-part-2 %>
+
+	</main>
+
+		<% include ../partials/add-new-footer %>

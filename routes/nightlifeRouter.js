@@ -9,15 +9,16 @@ router.get('/', (req, res) => {
 	Nightlife
 		.find()
 		.then(nightlife => {
-			res.json({
-				nightlife: nightlife.map(
-					(nightlife) => nightlife.serialize())
-			});
+			res.render('nightlife', {nightlife: nightlife})
 		})
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({message: 'Internal Server Error'});
 		});
+});
+
+router.get('/add-new', (req, res) => {
+	res.render('add-new-nightlife')
 });
 
 router.get('/:id', (req, res) => {
@@ -31,7 +32,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	const requiredFields = ['name', 'typeOfVenue', 'borough', 'address'];
+	const requiredFields = ['name', 'typeOfVenue', 'borough', 'building', 'street', 'zipCode', 'description', 'addedBy'];
 	for (let i=0; i<requiredFields.length; i++) {
 		const field = requiredFields[i];
 		if (!(field in req.body)) {
@@ -47,10 +48,15 @@ router.post('/', (req, res) => {
 			borough: req.body.borough,
 			typeOfVenue: req.body.typeOfVenue,
 			description: req.body.description,
-			address: req.body.address,
+			address: {
+				building: req.body.building,
+				street: req.body.street,
+				zipCode: req.body.zipCode
+			},
 			addedBy: req.body.addedBy
 		})
-		.then(nightlife => res.status(201).json(nightlife.serialize()))
+		.then(req.flash('success', 'Nightlife Successfully Added!'))
+		.then(res.redirect('nightlife'))
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({message: 'Internal Server Error'});
