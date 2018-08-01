@@ -1,22 +1,22 @@
 <% include ../partials/head %>
 
 <body>
-	<header role='banner'>
+	<header role="banner">
 		<h1>Neighborhood Guide - Add New Restaurant</h1>
 	</header>
 
-	<main role='main'>
-		<div class='nav'>
-			<a href='/restaurants' class='box restaurantIcon'>
-				<img src="/images/grid-world.png" class='main-icon'>
+	<main role="main">
+		<div class="nav">
+			<a href="/restaurants" class="box restaurantIcon">
+				<img src="/images/grid-world.png" class="main-icon">
 				<h2>Restaurants</h2>
 			</a>
-			<a href='/nightlife' class='box nightlifeIcon'>
-				<img src="/images/grid-world.png" class='main-icon'>
+			<a href="/nightlife" class="box nightlifeIcon">
+				<img src="/images/grid-world.png" class="main-icon">
 				<h2>Nightlife</h2>
 			</a>
-			<a href='/services' class='box servicesIcon'>
-				<img src="/images/grid-world.png" class='main-icon'>
+			<a href="/services" class="box servicesIcon">
+				<img src="/images/grid-world.png" class="main-icon">
 				<h2>Services</h2>
 			</a>
 		</div> 
@@ -29,29 +29,29 @@
 			</form>
 		</div>
 
-		<hr width='90%'>
+		<hr width="90%">
 
-		<form class='addNewForm' method='post' action='/restaurants'>
+		<form class="addNewForm" method="post" action="/restaurants">
 
 		<% include ../partials/add-new-form-part-1 %>
 
-			<label for='cuisine' class='form-label'> Cuisine: </label>
-			<select id='cuisine' name='cuisine' class='addNewDropdown' placeholder='Cuisine' required>
-				<option value=''>-- Cuisine --</option>
-				<option value='CoffeeShop'>CoffeeShop</option>
-				<option value='Middle Eastern'>Middle Eastern</option>
-				<option value='Seafood'>Seafood</option>
-				<option value='Vegetarian'>Vegetarian</option>
-				<option value='American'>American</option>
-				<option value='Pizza'>Pizza</option>
-				<option value='Chinese'>Chinese</option>
-				<option value='Italian'>Italian</option>
-				<option value='French'>French</option>
-				<option value='Korean'>Korean</option>
-				<option value='Japanese'>Japanese</option>
-				<option value='Indian'>Indian</option>
-				<option value='Vietnamese'>Vietnamese</option>
-				<option value='Other'>Other</option>
+			<label for="cuisine" class="form-label"> Cuisine: </label>
+			<select id="cuisine" name="cuisine" class="addNewDropdown" placeholder="Cuisine" required>
+				<option value="">-- Cuisine --</option>
+				<option value="CoffeeShop">CoffeeShop</option>
+				<option value="Middle Eastern">Middle Eastern</option>
+				<option value="Seafood">Seafood</option>
+				<option value="Vegetarian">Vegetarian</option>
+				<option value="American">American</option>
+				<option value="Pizza">Pizza</option>
+				<option value="Chinese">Chinese</option>
+				<option value="Italian">Italian</option>
+				<option value="French">French</option>
+				<option value="Korean">Korean</option>
+				<option value="Japanese">Japanese</option>
+				<option value="Indian">Indian</option>
+				<option value="Vietnamese">Vietnamese</option>
+				<option value="Other">Other</option>
 			</select><br>	
 
 		<% include ../partials/add-new-form-part-2 %>

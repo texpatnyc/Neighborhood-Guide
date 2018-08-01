@@ -1,32 +1,32 @@
 <% include ../partials/head %>
 
 <body>
-	<header role='banner'>
+	<header role="banner">
 		<h1>Neighborhood Guide - Nightlife</h1>
 	</header>
 
-	<main role='main'>
-		<div class='nav'>
-			<a href='./restaurants' class='box restaurantIcon'>
-				<img src="./images/grid-world.png" class='main-icon'>
+	<main role="main">
+		<div class="nav">
+			<a href="./restaurants" class="box restaurantIcon">
+				<img src="./images/grid-world.png" class="main-icon">
 				<h2>Restaurants</h2>
 			</a>
-			<a href='./nightlife' class='box nightlifeIcon'>
-				<img src="./images/grid-world.png" class='main-icon'>
+			<a href="./nightlife" class="box nightlifeIcon">
+				<img src="./images/grid-world.png" class="main-icon">
 				<h2>Nightlife</h2>
 			</a>
-			<a href='./services' class='box servicesIcon'>
-				<img src="./images/grid-world.png" class='main-icon'>
+			<a href="./services" class="box servicesIcon">
+				<img src="./images/grid-world.png" class="main-icon">
 				<h2>Services</h2>
 			</a>
 		</div>
 
-	<%- messages('message', locals) %>
+	<%- messages("message", locals) %>
 
 	<div class="full-list">
 	  <% nightlife.forEach((nightlife) => { %>
-	  	<a href='/nightlife/<%= nightlife._id %>'>
-	  		<img src='<%= nightlife.photoLink %>' class="item-photo"><br>
+	  	<a href="/nightlife/<%= nightlife._id %>">
+	  		<img src="<%= nightlife.photoLink %>" class="item-photo"><br>
 		    <span class="item-name"><%= nightlife.name %></span><br>
 		    <span class="item-typeOfVenue"><%= nightlife.typeOfVenue %></span><br>
 		    <span class="item-address"><%= nightlife.address %></span><br>

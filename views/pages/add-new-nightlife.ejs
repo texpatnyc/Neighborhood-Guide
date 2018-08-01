@@ -1,22 +1,22 @@
 <% include ../partials/head %>
 
 <body>
-	<header role='banner'>
+	<header role="banner">
 		<h1>Neighborhood Guide - Add New Nightlife</h1>
 	</header>
 
-	<main role='main'>
-		<div class='nav'>
-			<a href='/restaurants' class='box restaurantIcon'>
-				<img src="/images/grid-world.png" class='main-icon'>
+	<main role="main">
+		<div class="nav">
+			<a href="/restaurants" class="box restaurantIcon">
+				<img src="/images/grid-world.png" class="main-icon">
 				<h2>Restaurants</h2>
 			</a>
-			<a href='/nightlife' class='box nightlifeIcon'>
-				<img src="/images/grid-world.png" class='main-icon'>
+			<a href="/nightlife" class="box nightlifeIcon">
+				<img src="/images/grid-world.png" class="main-icon">
 				<h2>Nightlife</h2>
 			</a>
-			<a href='/services' class='box servicesIcon'>
-				<img src="/images/grid-world.png" class='main-icon'>
+			<a href="/services" class="box servicesIcon">
+				<img src="/images/grid-world.png" class="main-icon">
 				<h2>Services</h2>
 			</a>
 		</div> 
@@ -29,24 +29,24 @@
 			</form>
 		</div>
 
-		<hr width='90%'>
+		<hr width="90%">
 
-		<form class='addNewForm' method='post' action='/nightlife'>
+		<form class="addNewForm" method="post" action="/nightlife">
 
 		<% include ../partials/add-new-form-part-1 %>
 
-			<label for='typeOfVenue' class='form-label'> Type of Venue: </label>
-			<select id='typeOfVenue' name='typeOfVenue' class='addNewDropdown'>
-				<option value=''>- select -</option>
-				<option value='Bar'>Bar</option>
-				<option value='Dive Bar'>Dive Bar</option>
-				<option value='Cocktail Bar'>Cocktail Bar</option>
-				<option value='Nightclub'>Nightclub</option>
-				<option value='Live Music Venue'>Live Music Venue</option>
-				<option value='Lounge'>Lounge</option>
-				<option value='Hotel Bar'>Hotel Bar</option>
-				<option value='Pub'>Pub</option>
-				<option value='Other'>Other</option>
+			<label for="typeOfVenue" class="form-label"> Type of Venue: </label>
+			<select id="typeOfVenue" name="typeOfVenue" class="addNewDropdown">
+				<option value="">- select -</option>
+				<option value="Bar">Bar</option>
+				<option value="Dive Bar">Dive Bar</option>
+				<option value="Cocktail Bar">Cocktail Bar</option>
+				<option value="Nightclub">Nightclub</option>
+				<option value="Live Music Venue">Live Music Venue</option>
+				<option value="Lounge">Lounge</option>
+				<option value="Hotel Bar">Hotel Bar</option>
+				<option value="Pub">Pub</option>
+				<option value="Other">Other</option>
 			</select><br>	
 
 		<% include ../partials/add-new-form-part-2 %>
