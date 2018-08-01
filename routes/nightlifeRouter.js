@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	const requiredFields = ['name', 'typeOfVenue', 'borough', 'building', 'street', 'zipCode', 'description', 'addedBy'];
+	const requiredFields = ['name', 'typeOfVenue', 'address', 'phone', 'webUrl', 'description', 'addedBy'];
 	for (let i=0; i<requiredFields.length; i++) {
 		const field = requiredFields[i];
 		if (!(field in req.body)) {
@@ -45,14 +45,12 @@ router.post('/', (req, res) => {
 	Nightlife
 		.create({
 			name: req.body.name,
-			borough: req.body.borough,
 			typeOfVenue: req.body.typeOfVenue,
+			address: req.body.address,
+			phone: req.body.phone,
+			webUrl: req.body.webUrl,
+			photoLink: req.body.photoLink,
 			description: req.body.description,
-			address: {
-				building: req.body.building,
-				street: req.body.street,
-				zipCode: req.body.zipCode
-			},
 			addedBy: req.body.addedBy
 		})
 		.then(req.flash('success', 'Nightlife Successfully Added!'))

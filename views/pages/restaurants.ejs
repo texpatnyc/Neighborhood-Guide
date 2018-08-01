@@ -26,9 +26,12 @@
 	<div class="full-list">
 	  <% restaurants.forEach((restaurant) => { %>
 	  	<a href='/restaurants/<%= restaurant._id %>'>
-		    <span class="item-name"><%= restaurant.name %> (<%= restaurant.borough %>)</span><br>
+	  		<img src='<%= restaurant.photoLink %>' class="item-photo"><br>
+		    <span class="item-name"><%= restaurant.name %></span><br>
 		    <span class="item-cuisine"><%= restaurant.cuisine %></span><br>
-		    <span class="item-address"><%= restaurant.addressString %></span><br>
+		    <span class="item-address"><%= restaurant.address %></span><br>
+		    <span class="item-phone"><%= restaurant.phone %></span><br>
+		    <span class="item-webUrl"><%= restaurant.webUrl %></span><br>		    
 		    <span class="item-description"><%= restaurant.description %></span><br>
 		    <span class="item-addedBy">Added by: <%= restaurant.addedBy %></span>
 		 	</a>

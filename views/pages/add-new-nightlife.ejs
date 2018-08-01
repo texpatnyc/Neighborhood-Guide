@@ -24,7 +24,7 @@
 		<div id="formWrapper">
 			<div class="instructions">Search for the nightlife you'd like to add:</div><br>
 			<form id="search-form">
-				<input type="text" placeholder="Bob's Diner" id="search-term" aria-label="nightlife-name">
+				<input type="text" placeholder="eg. Connoly's Irish Pub" id="search-term" aria-label="nightlife-name" place>
 				<input type="submit" name="submit">
 			</form>
 		</div>
@@ -37,7 +37,8 @@
 
 			<label for='typeOfVenue' class='form-label'> Type of Venue: </label>
 			<select id='typeOfVenue' name='typeOfVenue' class='addNewDropdown'>
-				<option value=''></option>
+				<option value=''>- select -</option>
+				<option value='Bar'>Bar</option>
 				<option value='Dive Bar'>Dive Bar</option>
 				<option value='Cocktail Bar'>Cocktail Bar</option>
 				<option value='Nightclub'>Nightclub</option>

@@ -1,4 +1,4 @@
-// Maps API Key = AIzaSyDaTY5FdfkJgHZpvxf9OwEdN6bRlgeS7TY
+const googleApiKey = 'AIzaSyDaTY5FdfkJgHZpvxf9OwEdN6bRlgeS7TY';
 
 //------------------------------------------------------------
 //GoogleMaps API
@@ -19,18 +19,17 @@ function activatePlacesSearch() {
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
   		const selectedBusiness = autocomplete.getPlace();
     	console.log(selectedBusiness);
-			autoFillForm(selectedBusiness);
 			placeId = selectedBusiness.place_id;
 			console.log(placeId);
     });
 };
 
-function autoFillForm(jsonObj) {
-	document.getElementById('name').value = jsonObj.name;
-	document.getElementById('building').value = jsonObj.address_components[0].short_name;
-	document.getElementById('street').value = jsonObj.address_components[1].short_name;
-	document.getElementById('borough').value = jsonObj.address_components[2].short_name;
-	document.getElementById('zipCode').value = jsonObj.address_components[7].short_name;
+function autoFillForm(jsonObj, ref) {
+	document.getElementById('name').value = jsonObj.result.name;
+	document.getElementById('address').value = jsonObj.result.formatted_address;
+	document.getElementById('phone').value = jsonObj.result.formatted_phone_number;
+	document.getElementById('webUrl').value = jsonObj.result.website;
+	document.getElementById('photoLink').value = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${ref}&key=${googleApiKey}`;
 } 
 
 
@@ -43,14 +42,14 @@ function getPlaceDetails(query) {
 		data: {
 			placeid: query,
 			// fields: 'address_component,name,photo,place_id,type,url',
-			key: 'AIzaSyDaTY5FdfkJgHZpvxf9OwEdN6bRlgeS7TY'
+			key: googleApiKey
 		},
 		dataType: 'json',
 		type: 'GET',
 		success: function(data) {
 			console.log(data);
 			let photoRef = data.result.photos[0].photo_reference;
-			console.log(photoRef) 
+			autoFillForm(data, photoRef);
 		}
 	}
 	$.ajax(settings);
@@ -60,11 +59,17 @@ function getPlaceDetails(query) {
 // 	const settings = {
 // 		url: 'https://maps.googleapis.com/maps/api/place/photo',
 // 		data: {
-// 			key = 'AIzaSyDaTY5FdfkJgHZpvxf9OwEdN6bRlgeS7TY',
-// 			maxwidth = 400,
-// 			photoreference = 
+// 			key: googleApiKey,
+// 			maxwidth: 400,
+// 			photoreference: ref
+// 		},
+// 		type: 'GET',
+// 		success: function(link) {
+// 			console.log(link);
+// 			document.getElementById('photoLink').value = link;
 // 		}
 // 	}
+// 	$.ajax(settings);
 // }
 
 

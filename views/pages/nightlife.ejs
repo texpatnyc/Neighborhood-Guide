@@ -25,12 +25,16 @@
 
 	<div class="full-list">
 	  <% nightlife.forEach((nightlife) => { %>
-	  	<hr>
-	    <span class="item-name"><%= nightlife.name %> (<%= nightlife.borough %>)</span><br>
-	    <span class="item-typeOfVenue"><%= nightlife.typeOfVenue %></span><br>
-	    <span class="item-address"><%= nightlife.addressString %></span><br>
-	    <span class="item-description"><%= nightlife.description %></span><br>
-	    <span class="item-addedBy">Added by: <%= nightlife.addedBy %></span>
+	  	<a href='/nightlife/<%= nightlife._id %>'>
+	  		<img src='<%= nightlife.photoLink %>' class="item-photo"><br>
+		    <span class="item-name"><%= nightlife.name %></span><br>
+		    <span class="item-typeOfVenue"><%= nightlife.typeOfVenue %></span><br>
+		    <span class="item-address"><%= nightlife.address %></span><br>
+		    <span class="item-phone"><%= nightlife.phone %></span><br>
+		    <span class="item-webUrl"><%= nightlife.webUrl %></span><br>		    
+		    <span class="item-description"><%= nightlife.description %></span><br>
+		    <span class="item-addedBy">Added by: <%= nightlife.addedBy %></span>
+		 	</a>
 	  <% }) %>
 	</div>
 	

@@ -27,16 +27,10 @@ const commentSchema = new mongoose.Schema({
 const restaurantSchema = new mongoose.Schema({
 	name: String,
 	cuisine: String,
-	borough: String,
-	address: {
-		building: String,
-		location: {
-			lat: Number,
-			long: Number
-		},
-		street: String,
-		zipcode: String,
-	},
+	address: String,
+	phone: String,
+	webUrl: String,
+	photoLink: String,
 	description: String,
 	addedBy: String,
 	comments: [commentSchema]
@@ -45,13 +39,10 @@ const restaurantSchema = new mongoose.Schema({
 const nightlifeSchema = new mongoose.Schema({
 	name: String,
 	typeOfVenue: String,
-	borough: String,
-	address: {
-		building: String,
-		coord: [String],
-		street: String,
-		zipcode: String
-	},
+	address: String,
+	phone: String,
+	webUrl: String,
+	photoLink: String,
 	description: String,
 	addedBy: String,
 	comments: [commentSchema]
@@ -60,33 +51,13 @@ const nightlifeSchema = new mongoose.Schema({
 const servicesSchema = new mongoose.Schema({
 	name: String,
 	typeOfService: String,
-	borough: String,
-	address: {
-		building: String,
-		coord: [String],
-		street: String,
-		zipcode: String
-	},
+	address: String,
+	phone: String,
+	webUrl: String,
+	photoLink: String,
 	description: String,
 	addedBy: String,
 	comments: [commentSchema]
-});
-
-
-//------------------------------------------------------------
-//Virtuals
-//------------------------------------------------------------
-
-restaurantSchema.virtual('addressString').get(function() {
-  return `${this.address.building} ${this.address.street}`.trim();
-});
-
-nightlifeSchema.virtual('addressString').get(function() {
-  return `${this.address.building} ${this.address.street}`.trim();
-});
-
-servicesSchema.virtual('addressString').get(function() {
-  return `${this.address.building} ${this.address.street}`.trim();
 });
 
 //------------------------------------------------------------

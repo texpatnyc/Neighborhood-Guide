@@ -66,7 +66,15 @@ footer {
 .full-list a {
 	text-decoration: none;
 	display: block;
-	border-top: 1px solid black
+	border-top: 1px solid black;
+	padding: 10px;
+}
+
+.item-photo {
+	height: 160px;
+	float: left;
+	padding: 10px;
+	display: inline-block;
 }
 
 
