@@ -1,0 +1,125 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-family: 'Roboto', sans-serif;
+	color: black;
+}
+
+a {
+	text-decoration: none;
+}
+
+header {
+	text-align: center;
+	width: 100%;
+}
+
+#site-description {
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+footer {
+  text-align: center;
+}
+
+.nav {
+	display: flex;
+	width: 90%;
+	max-width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.box {
+	display: inline;
+	width: 33%;
+	text-align: center;
+	align-content: center;
+}
+
+.main-icon {
+	width: 150px;
+}
+
+.formWrapper {
+	margin-left: auto;
+	margin-right: auto;
+	align-content: center;
+	text-align: center;
+}
+
+.addNewForm {
+	margin-left: auto;
+	margin-right: auto;
+	align-content: center;
+	text-align: center;
+}
+
+#search-term {
+	width: 300px;
+}
+
+.listing {
+	text-decoration: none;
+	display: inline-block;
+	border: 1px solid black;
+	padding: 10px;
+	width: 450px;
+	margin:	10px;
+	font-size: .9em;
+}
+
+.center-cropped {
+    width: 120px;
+    height: 120px;
+		object-fit: cover;
+		object-position: center;
+    margin-left: 10px;
+    float: right;
+}
+
+.full-list {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1000px;
+}
+
+.webUrl {
+	font-size: .8em;
+}
+
+h4 {
+	margin-top: -15px;
+	margin-bottom: 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

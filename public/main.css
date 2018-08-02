@@ -1,125 +1,194 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-	font-family: 'Roboto', sans-serif;
-	color: black;
+  box-sizing: border-box;
 }
 
-a {
-	text-decoration: none;
+body {
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  background: url('./images/bgphotos/mike-chavarri-553396-unsplash.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #0a0a0b;
+  overflow: hidden;
+}
+
+ul, nav{
+  list-style: none;
+  padding: 0;
+}
+
+header a {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+header a:hover {
+  opacity: 1;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 1.5rem;
+  text-shadow: 2px 2px 5px black; 
+}
+
+i {
+  font-size: 1.3rem;
 }
 
 header {
-	text-align: center;
-	width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding: 10px 100px 0;
 }
 
-#site-description {
-	max-width: 1000px;
-	margin-left: auto;
-	margin-right: auto;
+header nav ul {
+  display: flex;
 }
 
-footer {
-  text-align: center;
+header nav li{
+  margin: 0 15px;
 }
 
-.nav {
-	display: flex;
-	width: 90%;
-	max-width: 1000px;
-	margin-right: auto;
-	margin-left: auto;
+header nav li:first-child{
+  margin-left: 0; 
 }
 
-.box {
-	display: inline;
-	width: 33%;
-	text-align: center;
-	align-content: center;
+header nav li:last-child{
+  margin-right: 0;  
 }
 
-.main-icon {
-	width: 150px;
+a.btn {
+  color: #fff;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.5);
+  transition: all 0.2s;
+}
+
+a.btn:hover {
+  background: #d73851;
+  border: 1px solid #d73851;
+  color: #fff;
 }
 
 .formWrapper {
-	margin-left: auto;
-	margin-right: auto;
-	align-content: center;
-	text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  align-content: center;
+  text-align: center;
 }
 
 .addNewForm {
-	margin-left: auto;
-	margin-right: auto;
-	align-content: center;
-	text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  align-content: center;
+  text-align: center;
 }
 
 #search-term {
-	width: 300px;
+  width: 300px;
 }
 
 .listing {
-	text-decoration: none;
-	display: inline-block;
-	border: 1px solid black;
-	padding: 10px;
-	width: 450px;
-	margin:	10px;
-	font-size: .9em;
+  display: inline-block;
+  background-color: rgba(255,255,255,0.8);
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  width: 450px;
+  margin: 10px;
+  font-size: .9em;
+  font-weight: 550;
+}
+
+.listing a {
+  text-decoration: none;
+  color: #0586c1;
 }
 
 .center-cropped {
-    width: 120px;
-    height: 120px;
-		object-fit: cover;
-		object-position: center;
-    margin-left: 10px;
-    float: right;
+  width: 120px;
+  height: 120px;
+  border-radius: 5px;
+  object-fit: cover;
+  object-position: center;
+  margin-left: 10px;
+  float: right;
 }
 
 .full-list {
-	margin-left: auto;
-	margin-right: auto;
-	max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
 }
 
 .webUrl {
-	font-size: .8em;
+  font-size: .8em;
 }
 
 h4 {
-	margin-top: -15px;
-	margin-bottom: 7px;
+  margin-top: -15px;
+  margin-bottom: 7px;
 }
 
+.cover  {
+  height: 85vh;
+  width: 100%;
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+.index-nav {
+  display: flex;
+  width: 90%;
+  max-width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+}
 
+.main-icon {
+  max-width: 40%;
+  filter: drop-shadow(5px 5px 5px white);
+}
 
+.nav-box {
+  display: inline;
+  width: 33%;
+  text-align: center;
+  filter: invert(100%);
+  align-content: center;
+  color: black;
+  text-shadow: 1px 1px 5px white;
+}
 
+#madeby {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 25px 100px;
+  color: #fff;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#madeby a {
+  text-decoration: none;
+  color: #fff;
+}

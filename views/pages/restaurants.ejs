@@ -1,31 +1,23 @@
 <% include ../partials/head %>
 
-<body>
-	<header role="banner">
-		<h1>Neighborhood Guide - Restaurants</h1>
-	</header>
+		<h1>Restaurants</h1>
 
-	<main role="main">
+		<%- messages("message", locals) %>
 
-	<% include ../partials/nav %>
-
-	<%- messages("message", locals) %>
-
-	<div class="full-list">
-	  <% restaurants.forEach((restaurant) => { %>
-	  	<div class="listing"> 
-  			<a href="/restaurants/<%= restaurant._id %>">
-	  				<img src="<%= restaurant.photoLink %>" class="center-cropped" />
-		    	<h3><%= restaurant.name.toUpperCase() %></h3>
-		    	<h4>(<%= restaurant.cuisine %>)</h4>
-		  	</a>
-	    	<%= restaurant.address %><br>
-	    	<%= restaurant.phone %><br>
-	    	<a href="<%= restaurant.webUrl %>"><%= restaurant.webUrl %></a>
-		    <p class="item-description"><%= restaurant.description %></p>
-		 	</div>
-	  <% }) %>
-	</div>
-	</main>
+		<div class="full-list">
+		  <% restaurants.forEach((restaurant) => { %>
+		  	<div class="listing"> 
+	  			<a href="/restaurants/<%= restaurant._id %>">
+		  				<img src="<%= restaurant.photoLink %>" class="center-cropped" />
+			    	<h3><%= restaurant.name.toUpperCase() %></h3>
+			    	<h4>(<%= restaurant.cuisine %>)</h4>
+			  	</a>
+		    	<%= restaurant.address %><br>
+		    	<%= restaurant.phone %><br>
+		    	<a href="<%= restaurant.webUrl %>"><%= restaurant.webUrl %></a>
+			    <p class="item-description"><%= restaurant.description %></p>
+			 	</div>
+		  <% }) %>
+		</div>
 
 <% include ../partials/footer %>
