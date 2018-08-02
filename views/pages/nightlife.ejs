@@ -6,35 +6,24 @@
 	</header>
 
 	<main role="main">
-		<div class="nav">
-			<a href="./restaurants" class="box restaurantIcon">
-				<img src="./images/grid-world.png" class="main-icon">
-				<h2>Restaurants</h2>
-			</a>
-			<a href="./nightlife" class="box nightlifeIcon">
-				<img src="./images/grid-world.png" class="main-icon">
-				<h2>Nightlife</h2>
-			</a>
-			<a href="./services" class="box servicesIcon">
-				<img src="./images/grid-world.png" class="main-icon">
-				<h2>Services</h2>
-			</a>
-		</div>
+
+		<% include ../partials/nav %>
 
 	<%- messages("message", locals) %>
 
 	<div class="full-list">
 	  <% nightlife.forEach((nightlife) => { %>
-	  	<a href="/nightlife/<%= nightlife._id %>">
-	  		<img src="<%= nightlife.photoLink %>" class="item-photo"><br>
-		    <span class="item-name"><%= nightlife.name %></span><br>
-		    <span class="item-typeOfVenue"><%= nightlife.typeOfVenue %></span><br>
-		    <span class="item-address"><%= nightlife.address %></span><br>
-		    <span class="item-phone"><%= nightlife.phone %></span><br>
-		    <span class="item-webUrl"><%= nightlife.webUrl %></span><br>		    
-		    <span class="item-description"><%= nightlife.description %></span><br>
-		    <span class="item-addedBy">Added by: <%= nightlife.addedBy %></span>
-		 	</a>
+	  	<div class="listing"> 
+  			<a href="/nightlife/<%= nightlife._id %>">
+	  				<img src="<%= nightlife.photoLink %>" class="center-cropped" />
+		    	<h3><%= nightlife.name.toUpperCase() %></h3>
+		    	<h4>(<%= nightlife.typeOfVenue %>)</h4>
+		  	</a>
+	    	<%= nightlife.address %><br>
+	    	<%= nightlife.phone %><br>
+	    	<a href="<%= nightlife.webUrl %>"><%= nightlife.webUrl %></a>
+		    <p class="item-description"><%= nightlife.description %></p>
+		 	</div>
 	  <% }) %>
 	</div>
 	

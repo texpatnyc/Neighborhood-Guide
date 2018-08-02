@@ -7,6 +7,10 @@ html {
 	color: black;
 }
 
+a {
+	text-decoration: none;
+}
+
 header {
 	text-align: center;
 	width: 100%;
@@ -19,10 +23,6 @@ header {
 }
 
 footer {
-  position: absolute;
-  bottom: 1rem;
-  left: 0;
-  width: 100%;
   text-align: center;
 }
 
@@ -63,18 +63,38 @@ footer {
 	width: 300px;
 }
 
-.full-list a {
+.listing {
 	text-decoration: none;
-	display: block;
-	border-top: 1px solid black;
+	display: inline-block;
+	border: 1px solid black;
 	padding: 10px;
+	width: 450px;
+	margin:	10px;
+	font-size: .9em;
 }
 
-.item-photo {
-	height: 160px;
-	float: left;
-	padding: 10px;
-	display: inline-block;
+.center-cropped {
+    width: 120px;
+    height: 120px;
+		object-fit: cover;
+		object-position: center;
+    margin-left: 10px;
+    float: right;
+}
+
+.full-list {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1000px;
+}
+
+.webUrl {
+	font-size: .8em;
+}
+
+h4 {
+	margin-top: -15px;
+	margin-bottom: 7px;
 }
 
 
