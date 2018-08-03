@@ -33,6 +33,10 @@ header a:hover {
   opacity: 1;
 }
 
+/*header a:active {
+  text-shadow: 1px 1px 5px black;
+}*/
+
 h1 {
   font-size: 3rem;
   font-weight: 700;
@@ -41,8 +45,23 @@ h1 {
   text-shadow: 2px 2px 5px black; 
 }
 
-i {
+#addNewLink {
+  color: #fff;
   font-size: 1.3rem;
+  text-shadow: 1px 1px 3px black;
+  text-align: center; 
+  line-height: 1.5; 
+}
+
+#addNewLink a {
+  text-decoration: none;
+  color: #fff;
+}
+
+#addNewLink a:hover {
+  color: #ef3f5a;
+  text-shadow: none;
+  font-weight: 700;
 }
 
 header {
@@ -180,7 +199,7 @@ h4 {
   text-shadow: 1px 1px 5px white;
 }
 
-#madeby {
+#photoCred {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -188,7 +207,135 @@ h4 {
   color: #fff;
 }
 
-#madeby a {
+#photoCred a {
   text-decoration: none;
   color: #fff;
 }
+
+.search-form input[type="submit"] {
+  background: #ef3f5a;
+  border: 1px solid #ef3f5a;
+  color: #fff;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.search-form input[type="submit"]:hover {
+  background: #d73851;
+  border: 1px solid #d73851;
+}
+
+.search-form {
+  display: flex;
+/*  z-index: 10;*/
+  position: relative;
+  width: 500px;
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.search-form > * {
+  border: 0;
+  padding: 0 0 0 10px;
+  background: #fff;
+  line-height: 50px;
+  font-size: 1rem;
+}
+
+.search-form input[type="search"] {
+  flex-basis: 500px;
+}
+
+.addNewForm {
+  z-index: 10;
+  position: relative;
+  width: 300px;
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.addNewForm input[type="submit"] {
+  background: #ef3f5a;
+  border: 1px solid #ef3f5a;
+  color: #fff;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.addNewForm input[type="submit"]:hover {
+  background: #d73851;
+  border: 1px solid #d73851;
+}
+
+.addNewForm input[type="text"], select{
+  border: 0;
+  width: 300px;
+  height: 30px;
+  padding: 5px;
+  margin-bottom: 5px;
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.addNewForm textarea {
+  border: 0;
+  width: 300px;
+  height: 150px;
+  padding: 5px;
+  margin-bottom: 5px;
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.addNewForm input[type="submit"] {
+  width: 150px;
+  height: 40px;
+  background: #ef3f5a;
+  border: 1px solid #ef3f5a;
+  color: #fff;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
+  margin-top: 5px;
+}
+
+.addNewForm input[type="submit"]:hover {
+  background: #d73851;
+  border: 1px solid #d73851;
+}
+
+.addNewForm > * {
+  border: 0;
+  background: #fff;
+  font-size: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

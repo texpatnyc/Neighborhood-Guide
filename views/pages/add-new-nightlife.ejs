@@ -1,31 +1,20 @@
 <% include ../partials/head %>
 
-<body>
-	<header role="banner">
-		<h1>Neighborhood Guide - Add New Nightlife</h1>
-	</header>
+		<h1>Add A New Nightlife:</h1>
 
-	<main role="main">
-		
-		<% include ../partials/nav %>
+		<form class="search-form">
+      <input type="search" placeholder="What nightlife you like to add?" id="search-term" aria-label="nightlife-search-term">
+      <input type="submit" value="Auto-Fill">
+    </form>
 
-		<div id="formWrapper">
-			<div class="instructions">Search for the nightlife you'd like to add:</div><br>
-			<form id="search-form">
-				<input type="text" placeholder="eg. Connoly's Irish Pub" id="search-term" aria-label="nightlife-name" place>
-				<input type="submit" name="submit">
-			</form>
-		</div>
-
-		<hr width="90%">
+ 		<p>
 
 		<form class="addNewForm" method="post" action="/nightlife">
 
-		<% include ../partials/add-new-form-part-1 %>
+			<input id="name" name="name" type="text" class="addNewTextbox" placeholder="Name" required><br>
 
-			<label for="typeOfVenue" class="form-label"> Type of Venue: </label>
-			<select id="typeOfVenue" name="typeOfVenue" class="addNewDropdown">
-				<option value="">- select -</option>
+			<select id="typeOfVenue" name="typeOfVenue" class="addNewDropdown" required>
+				<option value="">-- Type of Nightlife --</option>
 				<option value="Bar">Bar</option>
 				<option value="Dive Bar">Dive Bar</option>
 				<option value="Cocktail Bar">Cocktail Bar</option>
@@ -39,6 +28,4 @@
 
 		<% include ../partials/add-new-form-part-2 %>
 
-	</main>
-
-		<% include ../partials/add-new-footer %>
+<% include ../partials/footer %>

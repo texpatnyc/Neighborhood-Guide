@@ -33,15 +33,11 @@ function autoFillForm(jsonObj, ref) {
 } 
 
 
-
-
-
 function getPlaceDetails(query) {
 	const settings = {
 		url: 'https://maps.googleapis.com/maps/api/place/details/json',
 		data: {
 			placeid: query,
-			// fields: 'address_component,name,photo,place_id,type,url',
 			key: googleApiKey
 		},
 		dataType: 'json',
@@ -55,28 +51,11 @@ function getPlaceDetails(query) {
 	$.ajax(settings);
 }
 
-// function getPlacePhoto(ref) {
-// 	const settings = {
-// 		url: 'https://maps.googleapis.com/maps/api/place/photo',
-// 		data: {
-// 			key: googleApiKey,
-// 			maxwidth: 400,
-// 			photoreference: ref
-// 		},
-// 		type: 'GET',
-// 		success: function(link) {
-// 			console.log(link);
-// 			document.getElementById('photoLink').value = link;
-// 		}
-// 	}
-// 	$.ajax(settings);
-// }
-
 
 // submit
 
 (function () {
-	$('#search-form').submit(e => {
+	$('.search-form').submit(e => {
 		e.preventDefault();
 		getPlaceDetails(placeId);
 	})	

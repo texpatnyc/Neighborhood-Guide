@@ -1,29 +1,18 @@
 <% include ../partials/head %>
 
-<body>
-	<header role="banner">
-		<h1>Neighborhood Guide - Add New Restaurant</h1>
-	</header>
+		<h1>Add A New Nightlife:</h1>
 
-	<main role="main">
+		<form class="search-form">
+      <input type="search" placeholder="What restaurant you like to add?" id="search-term" aria-label="restaurant-search-term">
+      <input type="submit" value="Auto-Fill">
+    </form>
 
-		<% include ../partials/nav %>
-
-		<div id="formWrapper">
-			<div class="instructions">Search for the restaurant you'd like to add:</div><br>
-			<form id="search-form">
-				<input type="text" placeholder="eg. Bob's Diner" id="search-term" aria-label="restaurant-name">
-				<input type="submit" name="submit">
-			</form>
-		</div>
-
-		<hr width="90%">
+ 		<p>
 
 		<form class="addNewForm" method="post" action="/restaurants">
 
-		<% include ../partials/add-new-form-part-1 %>
+			<input id="name" name="name" type="text" class="addNewTextbox" placeholder="Name" required><br>
 
-			<label for="cuisine" class="form-label"> Cuisine: </label>
 			<select id="cuisine" name="cuisine" class="addNewDropdown" placeholder="Cuisine" required>
 				<option value="">-- Cuisine --</option>
 				<option value="CoffeeShop">CoffeeShop</option>
@@ -44,6 +33,4 @@
 
 		<% include ../partials/add-new-form-part-2 %>
 
-	</main>
-
-		<% include ../partials/add-new-footer %>
+<% include ../partials/footer %>

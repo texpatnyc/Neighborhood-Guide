@@ -1,31 +1,20 @@
 <% include ../partials/head %>
 
-<body>
-	<header role="banner">
-		<h1>Neighborhood Guide - Add New Service</h1>
-	</header>
+		<h1>Add A New Service:</h1>
 
-	<main role="main">
+		<form class="search-form">
+      <input type="search" placeholder="What service you like to add?" id="search-term" aria-label="service-search-term">
+      <input type="submit" value="Auto-Fill">
+    </form>
 
-		<% include ../partials/nav %>
-
-		<div id="formWrapper">
-			<div class="instructions">Search for the service you'd like to add:</div><br>
-			<form id="search-form">
-				<input type="text" placeholder="eg. Jack's Cleaners" id="search-term" aria-label="service-name">
-				<input type="submit" name="submit">
-			</form>
-		</div>
-
-		<hr width="90%">
+ 		<p>
 
 		<form class="addNewForm" method="post" action="/services">
 
-		<% include ../partials/add-new-form-part-1 %>
+			<input id="name" name="name" type="text" class="addNewTextbox" placeholder="Name" required><br>
 
-			<label for="typeOfService" class="form-label"> Type of Service: </label>
 			<select id="typeOfService" name="typeOfService" class="addNewDropdown">
-				<option value=""></option>
+				<option value="">-- Type of Service --</option>
 				<option value="Grocery Store">Grocery Store</option>
 				<option value="Liquor Store">Liquor Store</option>
 				<option value="Laundry / Dry Cleaner">Laundry / Dry Cleaner</option>
@@ -37,6 +26,4 @@
 
 		<% include ../partials/add-new-form-part-2 %>
 
-	</main>
-
-		<% include ../partials/add-new-footer %>
+<% include ../partials/footer %>
