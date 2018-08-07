@@ -1,0 +1,41 @@
+<% include ../partials/head %>
+
+	<%- messages("message", locals) %>
+
+	<div class="single-listing"> 
+		<img src="<%= nightlife.photoLink %>" class="center-cropped-single" />
+  	<h1><%= nightlife.name %></h1>
+  	<h2>(<%= nightlife.typeOfVenue %>)</h2>
+  	<%= nightlife.address %><br>
+  	<%= nightlife.phone %><br>
+  	<a href="<%= nightlife.webUrl %>"><%= nightlife.webUrl %></a>
+    <p class="item-description"><%= nightlife.description %></p>
+
+
+    <form class="addComment" action="/nightlife/<%=nightlife.id%>/comments" method="post">
+    	<h3>Add Comment:</h3>
+    	<textarea id="comment" name="comment" placeholder="Tell us what you think!" required></textarea></br>
+    	<input id="addedBy" name="addedBy" type="text" placeholder="Your Name"> 
+    	<input type="submit" name="submit" value="Submit">
+    </form>
+
+    <% if (nightlife.comments.length) { %>
+    	<ul class="commentSection">
+    		<% nightlife.comments.forEach(comment =>  { %>
+    			<li>
+    				<span class="commentDate"><%= comment.date %></span>
+    				<span class="commentUser"><%= comment.addedBy %> said:</span><br>
+    				<span class="comment">"<%= comment.comment %>"</span>
+    			</li>
+    		<% }) %>
+			</ul>
+    <% } %>
+
+ 	</div>
+
+ 	<form method="POST" action="/nightlife/<%=nightlife.id%>?_method=DELETE">
+  	<input class="deleteBtn" type="submit" value="Delete Listing"></input>
+	</form>
+
+<% include ../partials/footer %>
+

@@ -22,10 +22,11 @@ router.get('/add-new', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-	console.log(req.params);
 	Restaurant
 		.findById(req.params.id)
-		.then(restaurant => res.json(restaurant))
+		.then(restaurant => {
+			res.render('single-restaurant', {restaurant: restaurant})
+		})
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({message: 'Internal Server Error'});
@@ -33,7 +34,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	const requiredFields = ['name', 'cuisine', 'address', 'phone', 'webUrl', 'description', 'addedBy'];
+	const requiredFields = ['name', 'cuisine', 'address', 'phone', 'webUrl', 'description'];
 	for (let i=0; i<requiredFields.length; i++) {
 		const field = requiredFields[i];
 		if (!(field in req.body)) {
@@ -61,12 +62,35 @@ router.post('/', (req, res) => {
 		});
 });
 
+router.post('/:id/comments', (req, res) => {
+	const requiredFields = ['addedBy', 'comment'];
+	for (let i=0; i<requiredFields.length; i++) {
+		const field = requiredFields[i];
+		if (!(field in req.body)) {
+			const message = `Missing \`${field}\` in request body`;
+			return res.status(400).send(message);
+		}
+	}
+
+	const obj = {
+				addedBy: req.body.addedBy,
+				comment: req.body.comment,
+				date: Date.now()
+			};
+
+	Restaurant
+		.findByIdAndUpdate(req.params.id, { $push: { comments: obj } })
+		.then(req.flash('success', 'Comment Successfully Added!'))
+		.then(restaurant => {
+			res.redirect('/restaurants/'+ req.params.id)
+		})
+})
+
 router.put('/:id', (req, res) => {
 	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
 		const message = (
 			`Request path id (${req.params.id}) and request body id ` +
 			`(${req.body.id}) must match`);
-		console.error(message);
 		return res.status(400).json({message: message});
 	}
 	
@@ -88,7 +112,8 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
 	Restaurant
 		.findByIdAndRemove(req.params.id)
-		.then(restaurant => res.status(204).end())
+		.then(req.flash('success', 'Restaurant Successfully Deleted!'))
+		.then(res.redirect('/restaurants'))
 		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
 });
 
@@ -97,8 +122,8 @@ module.exports = router;
 
 
 
-
-
+// method-override
+// ?_method=PUT or DELETE
 
 
 

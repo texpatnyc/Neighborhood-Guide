@@ -4,9 +4,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
-const { check, validationResult } = require('express-validator/check');
 const flash = require('connect-flash');
 const session = require('express-session');
+const methodOverride = require('method-override');
 
 
 mongoose.Promise = global.Promise;
@@ -44,6 +44,9 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
 	res.render('index');
 });
+
+// Method Override
+app.use(methodOverride('_method'));
 
 app.use('/restaurants', restaurantRouter);
 app.use('/nightlife', nightlifeRouter);

@@ -24,7 +24,9 @@ router.get('/add-new', (req, res) => {
 router.get('/:id', (req, res) => {
 	Nightlife
 		.findById(req.params.id)
-		.then(nightlife => res.json(nightlife.serialize()))
+		.then(nightlife => {
+			res.render('single-nightlife', {nightlife: nightlife})
+		})
 		.catch(err => {
 			console.error(err);
 			res.status(500).json({message: 'Internal Server Error'});
@@ -32,7 +34,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	const requiredFields = ['name', 'typeOfVenue', 'address', 'phone', 'webUrl', 'description', 'addedBy'];
+	const requiredFields = ['name', 'typeOfVenue', 'address', 'phone', 'webUrl', 'description'];
 	for (let i=0; i<requiredFields.length; i++) {
 		const field = requiredFields[i];
 		if (!(field in req.body)) {
@@ -61,6 +63,30 @@ router.post('/', (req, res) => {
 		});
 });
 
+router.post('/:id/comments', (req, res) => {
+	const requiredFields = ['addedBy', 'comment'];
+	for (let i=0; i<requiredFields.length; i++) {
+		const field = requiredFields[i];
+		if (!(field in req.body)) {
+			const message = `Missing \`${field}\` in request body`;
+			return res.status(400).send(message);
+		}
+	}
+
+	const obj = {
+				addedBy: req.body.addedBy,
+				comment: req.body.comment,
+				date: Date.now()
+			};
+
+	Nightlife
+		.findByIdAndUpdate(req.params.id, { $push: { comments: obj } })
+		.then(req.flash('success', 'Comment Successfully Added!'))
+		.then(nightlife => {
+			res.redirect('/nightlife/'+ req.params.id)
+		})
+})
+
 router.put('/:id', (req, res) => {
 	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
 		const message = (
@@ -88,7 +114,8 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
 	Nightlife
 		.findByIdAndRemove(req.params.id)
-		.then(nightlife => res.status(204).end())
+		.then(req.flash('success', 'Nightlife Successfully Deleted!'))
+		.then(res.redirect('/nightlife'))
 		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
 });
 

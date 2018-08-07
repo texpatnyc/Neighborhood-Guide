@@ -18,9 +18,7 @@ function activatePlacesSearch() {
     let autocomplete = new google.maps.places.Autocomplete(input, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
   		const selectedBusiness = autocomplete.getPlace();
-    	console.log(selectedBusiness);
 			placeId = selectedBusiness.place_id;
-			console.log(placeId);
     });
 };
 

@@ -2,6 +2,7 @@
 
 * {
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 html {
@@ -11,7 +12,7 @@ html {
 body {
   font-family: 'Lato', sans-serif;
   margin: 0;
-  background: url('./images/bgphotos/mike-chavarri-553396-unsplash.jpg') no-repeat center center fixed;
+  background: url('./images/bgphotos/mike-chavarri-553396-unsplash-low.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #0a0a0b;
   overflow: hidden;
@@ -32,10 +33,6 @@ header a {
 header a:hover {
   opacity: 1;
 }
-
-/*header a:active {
-  text-shadow: 1px 1px 5px black;
-}*/
 
 h1 {
   font-size: 3rem;
@@ -309,8 +306,80 @@ h4 {
   font-size: 1rem;
 }
 
+.single-listing {
+  display: inline-block;
+  background-color: rgba(255,255,255,0.8);
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px;
+  font-size: 1.1em;
+  font-weight: 550;
+}
 
+.single-listing h1 {
+  color: #000;
+  text-shadow: none;
+}
 
+.center-cropped-single {
+  max-width: 250px;
+  max-height: 250px;
+  border-radius: 5px;
+  margin-left: 10px;
+  float: right;
+}
+
+.single-listing a {
+  text-decoration: none;
+  color: #0586c1;
+}
+
+.single-listing h2 {
+  margin-top: -30px;
+}
+
+.commentSection li {
+  border-top: 1px solid black;
+  padding: 10px;
+  display: block;
+  vertical-align: top;
+}
+
+.commentUser {
+  font-size: .8em;
+}
+
+.commentDate {
+  font-size: .6em;
+  float: right;
+}
+
+.comment {
+  font-size: 1em;
+  font-style: italic;
+  margin-left: 5px;
+  margin-top: 7px;
+}
+
+.deleteBtn {
+  color: #fff;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.5);
+  transition: all 0.2s;
+  background: transparent;
+}
+
+.deleteBtn:hover {
+  background: #d73851;
+  border: 1px solid #d73851;
+  color: #fff;
+}
+
+textarea#comment {
+  width: 80%;
+  height: 75px;
+}
 
 
 
