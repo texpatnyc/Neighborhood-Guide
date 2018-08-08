@@ -27,10 +27,17 @@
 	          <a href="/services" title="Services">Services</a>
 	        </li>
 	        <li>
-	          <a class="btn" href="#" title="Register / Log In">Register/Log In</a>
+	        	<% if (user) {%>
+	          	<a class="btn" href="/logout" title="Sign Out">Sign Out</a>
+	          <% } else { %>
+	          	<a class="btn" href="/login" title="Register / Log In">Register/Log In</a>
+	          <% }; %>
 	        </li>
 	      </ul>
 	    </nav>
+
+<!-- 	    <%= user %> -->
+
 	  </header>
 
 	<main>

@@ -11,13 +11,20 @@
   	<a href="<%= restaurant.webUrl %>"><%= restaurant.webUrl %></a>
     <p class="item-description"><%= restaurant.description %></p>
 
+    <% if (user) {%>
 
-    <form class="addComment" action="/restaurants/<%=restaurant.id%>/comments" method="post">
-    	<h3>Add Comment:</h3>
-    	<textarea id="comment" name="comment" placeholder="Tell us what you think!" required></textarea></br>
-    	<input id="addedBy" name="addedBy" type="text" placeholder="Your Name"> 
-    	<input type="submit" name="submit" value="Submit">
-    </form>
+      <form class="addComment" action="/restaurants/<%=restaurant.id%>/comments" method="post">
+      	<h3>Add Comment:</h3>
+      	<textarea id="comment" name="comment" placeholder="Tell us what you think!" required></textarea></br>
+      	<input id="addedBy" name="addedBy" type="text" placeholder="Your Name"> 
+      	<input type="submit" name="submit" value="Submit">
+      </form>  
+
+    <% } else { %>
+
+      <a href="../login">Login</a> to leave a comment!   
+         
+    <% } %>
 
     <% if (restaurant.comments.length) { %>
     	<ul class="commentSection">

@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -7,7 +8,9 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
-
+const morgan = require('morgan');
+const passport = require('passport');
+const cookieParser = require('cookie-parser');
 
 mongoose.Promise = global.Promise;
 
@@ -16,24 +19,36 @@ const {PORT, DATABASE_URL} = require('./config');
 const restaurantRouter = require('./routes/restaurantRouter');
 const nightlifeRouter = require('./routes/nightlifeRouter');
 const serviceRouter = require('./routes/serviceRouter');
+const userRouter = require('./routes/userRouter');
+const { router: authRouter, localStrategy, serializeUser, deserializeUser } = require('./auth');
 
 const app = express();
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(cookieParser());
 
 // Express Session Middleware
 app.use(session({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true
+  secret: 'snoop dogg',
+  resave: false,
+  saveUninitialized: false
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(localStrategy);
+
+passport.serializeUser(serializeUser);
+
+passport.deserializeUser(deserializeUser);
 
 // Express Message Middleware
 app.use(require('connect-flash')());
 app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
+  res.locals.user = req.user;
   next();
 });
 
@@ -45,12 +60,41 @@ app.get('/', (req, res) => {
 	res.render('index');
 });
 
+app.get('/login', (req, res) => {
+	res.render('login');
+});
+
+app.get('/signup', (req, res) => {
+	res.render('signup');
+});
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 // Method Override
 app.use(methodOverride('_method'));
+
+// Logging
+app.use(morgan('common'));
+
+// CORS
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  if (req.method === 'OPTIONS') {
+    return res.send(204);
+  }
+  next();
+});
 
 app.use('/restaurants', restaurantRouter);
 app.use('/nightlife', nightlifeRouter);
 app.use('/services', serviceRouter);
+app.use('/users', userRouter);
+app.use('/auth', authRouter);
 
 //------------------------------------------------------------
 //Server Functions

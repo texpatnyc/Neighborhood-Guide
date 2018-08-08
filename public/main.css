@@ -42,6 +42,12 @@ h1 {
   text-shadow: 2px 2px 5px black; 
 }
 
+h4 {
+  margin-top: -15px;
+  margin-bottom: 7px;
+}
+
+
 #addNewLink {
   color: #fff;
   font-size: 1.3rem;
@@ -156,11 +162,6 @@ a.btn:hover {
 
 .webUrl {
   font-size: .8em;
-}
-
-h4 {
-  margin-top: -15px;
-  margin-bottom: 7px;
 }
 
 .cover  {
@@ -308,6 +309,7 @@ h4 {
 
 .single-listing {
   display: inline-block;
+  max-width: 700px;
   background-color: rgba(255,255,255,0.8);
   border: 1px solid black;
   border-radius: 10px;
@@ -382,6 +384,27 @@ textarea#comment {
 }
 
 
+.login {
+  width: 400px;
+  text-align: center;
+  background-color: rgba(255,255,255,0.8);
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px;
+  font-size: 1.1em;
+  font-weight: 550;
+}
+
+.login h1 {
+  color: black;
+  text-shadow: none;
+}
+
+.login a {
+  text-decoration: none;
+  color: #0586c1;
+}
 
 
 

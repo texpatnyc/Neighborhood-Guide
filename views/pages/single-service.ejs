@@ -11,20 +11,30 @@
   	<a href="<%= service.webUrl %>"><%= service.webUrl %></a>
     <p class="item-description"><%= service.description %></p>
 
+    <% if (user) {%>
 
-    <form class="addComment" action="/services/<%=service.id%>/comments" method="post">
-    	<h3>Add Comment:</h3>
-    	<textarea id="comment" name="comment" placeholder="Tell us what you think!" required></textarea></br>
-    	<input id="addedBy" name="addedBy" type="text" placeholder="Your Name"> 
-    	<input type="submit" name="submit" value="Submit">
-    </form>
+      <form class="addComment" action="/services/<%=service.id%>/comments" method="post">
+        <h3>Add Comment:</h3>
+        <textarea id="comment" name="comment" placeholder="Tell us what you think!" required></textarea>
+        <input class="hiddenInput" name="hometown" type="hidden" value="<%=user.hometown%>">
+        <input class="hiddenInput" name="firstName" type="hidden" value="<%=user.firstName%>">
+      </br>
+        <input type="submit" name="submit" value="Submit">
+      </form>
+
+    <% } else { %>
+
+      <a href="../login">Login</a> to leave a comment!      
+      
+    <% } %>
 
     <% if (service.comments.length) { %>
     	<ul class="commentSection">
     		<% service.comments.forEach(comment =>  { %>
     			<li>
     				<span class="commentDate"><%= comment.date %></span>
-    				<span class="commentUser"><%= comment.addedBy %> said:</span><br>
+    				<span class="commentUser"><%= comment.firstName %> from 
+              <%= comment.hometown %> said:</span><br>
     				<span class="comment">"<%= comment.comment %>"</span>
     			</li>
     		<% }) %>

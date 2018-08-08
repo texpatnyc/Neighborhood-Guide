@@ -1,25 +1,32 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 //------------------------------------------------------------
 //Schemas
 //------------------------------------------------------------
 
 const userSchema = new mongoose.Schema({
-	firstName: String,
-	lastName: String,
-	origin: {
-		city: String,
-		country: String
-	},
-	photo: String
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  firstName: {type: String, default: ''},
+  lastName: {type: String, default: ''},
+  hometown: {type: String, default: ''}
 });
 
 // add password verification methods
 
 const commentSchema = new mongoose.Schema({
-	addedBy: String,
+	firstName: String,
+	hometown: String,
 	date: Date,
 	comment: String
 });
@@ -64,41 +71,13 @@ const servicesSchema = new mongoose.Schema({
 //Instance Methods
 //------------------------------------------------------------
 
-restaurantSchema.methods.serialize = function() {
-	return {
-		id: this._id,
-		name: this.name,
-		cuisine: this.cuisine,
-		borough: this.borough,
-		address: this.addressString,
-		description: this.description,
-		addedBy: this.addedBy
-	};
-}
+userSchema.methods.validatePassword = function(password) {
+  return bcrypt.compare(password, this.password);
+};
 
-nightlifeSchema.methods.serialize = function() {
-	return {
-		id: this._id,
-		name: this.name,
-		typeOfVenue: this.typeOfVenue,
-		borough: this.borough,
-		address: this.addressString,
-		description: this.description,
-		addedBy: this.addedBy
-	};
-}
-
-servicesSchema.methods.serialize = function() {
-	return {
-		id: this._id,
-		name: this.name,
-		typeOfService: this.typeOfService,
-		borough: this.borough,
-		address: this.addressString,
-		description: this.description,
-		addedBy: this.addedBy
-	};
-}
+userSchema.statics.hashPassword = function(password) {
+  return bcrypt.hash(password, 10);
+};
 
 const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 const Nightlife = mongoose.model('Nightlife', nightlifeSchema);
