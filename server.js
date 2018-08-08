@@ -70,7 +70,7 @@ app.get('/signup', (req, res) => {
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect('back');
 });
 
 // Method Override

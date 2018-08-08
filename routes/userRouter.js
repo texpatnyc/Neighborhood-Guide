@@ -127,6 +127,7 @@ router.post('/', jsonParser, (req, res) => {
       res.redirect('/login');
     })
     .catch(err => {
+      console.log(err);
       // Forward validation errors on to the client, otherwise give a 500
       // error because something unexpected has happened
       if (err.reason === 'ValidationError') {

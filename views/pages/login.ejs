@@ -3,9 +3,11 @@
 	<div class="login">
 		<h1>Login</h1>
 
+			<%- messages("message", locals) %>
+
 		<form class="loginForm" method="post" action="/auth/login">
 			<input id="username" name="username" type="text" placeholder="Email Address" required></br>
-			<input id="password" name="password" type="text" placeholder="Password"></br>
+			<input id="password" name="password" type="text" placeholder="Password" required></br>
 			<input name="submit" type="submit" value="Submit">
 		</form>
 

@@ -12,11 +12,13 @@
     <p class="item-description"><%= nightlife.description %></p>
 
     <% if (user) {%>
-    
+
       <form class="addComment" action="/nightlife/<%=nightlife.id%>/comments" method="post">
       	<h3>Add Comment:</h3>
-      	<textarea id="comment" name="comment" placeholder="Tell us what you think!" required></textarea></br>
-      	<input id="addedBy" name="addedBy" type="text" placeholder="Your Name"> 
+      	<textarea id="comment" name="comment" placeholder="Tell us what you think!" required></textarea>
+        <input class="hiddenInput" name="hometown" type="hidden" value="<%=user.hometown%>">
+        <input class="hiddenInput" name="firstName" type="hidden" value="<%=user.firstName%>">
+        <br>
       	<input type="submit" name="submit" value="Submit">
       </form>  
 
@@ -30,10 +32,11 @@
     	<ul class="commentSection">
     		<% nightlife.comments.forEach(comment =>  { %>
     			<li>
-    				<span class="commentDate"><%= comment.date %></span>
-    				<span class="commentUser"><%= comment.addedBy %> said:</span><br>
-    				<span class="comment">"<%= comment.comment %>"</span>
-    			</li>
+            <span class="commentDate"><%= comment.date %></span>
+            <span class="commentUser"><%= comment.firstName %> from 
+              <%= comment.hometown %> said:</span><br>
+            <span class="comment">"<%= comment.comment %>"</span>
+          </li>
     		<% }) %>
 			</ul>
     <% } %>

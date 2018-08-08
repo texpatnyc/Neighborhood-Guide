@@ -64,7 +64,7 @@ router.post('/', (req, res) => {
 });
 
 router.post('/:id/comments', (req, res) => {
-	const requiredFields = ['addedBy', 'comment'];
+	const requiredFields = ['comment'];
 	for (let i=0; i<requiredFields.length; i++) {
 		const field = requiredFields[i];
 		if (!(field in req.body)) {
@@ -74,7 +74,8 @@ router.post('/:id/comments', (req, res) => {
 	}
 
 	const obj = {
-				addedBy: req.body.addedBy,
+				firstName: req.body.firstName,
+				hometown: req.body.hometown,
 				comment: req.body.comment,
 				date: Date.now()
 			};
