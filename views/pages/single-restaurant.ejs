@@ -32,13 +32,19 @@
     	<ul class="commentSection">
     		<% restaurant.comments.forEach(comment =>  { %>
     			<li>
-            <span class="commentDate"><%= comment.date %></span>
+            <span class="commentDate"><%= comment.date %> 
+              <% if((user) && (user.username === 'admin')) {%>
+                <form class="deleteComment" method="POST" action="/restaurants/<%=restaurant.id%>/comments/<%=comment._id%>?_method=DELETE">
+                  <input type="submit" value="x"></input>
+                </form>
+              <%}%>
+          </span>
             <span class="commentUser"><%= comment.firstName %> from 
               <%= comment.hometown %> said:</span><br>
             <span class="comment">"<%= comment.comment %>"</span>
           </li>
-    		<% }) %>
-			</ul>
+        <% }) %>
+      </ul>
     <% } %>
 
  	</div>

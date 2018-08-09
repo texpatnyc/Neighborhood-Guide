@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {Nightlife} = require('../models');
+const {Nightlife, Comment} = require('../models');
 
 router.get('/', (req, res) => {
 	Nightlife
@@ -87,6 +87,14 @@ router.post('/:id/comments', (req, res) => {
 			res.redirect('/nightlife/'+ req.params.id)
 		})
 })
+
+router.delete('/:id/comments/:commentId', (req, res) => {
+	Comment
+		.findByIdAndDelete(req.params.commentId)
+		.then(req.flash('success', 'Comment Successfully Deleted!'))
+		.then(res.redirect('back'))
+		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+});
 
 router.put('/:id', (req, res) => {
 	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {

@@ -355,6 +355,7 @@ a.btn:hover {
 .commentDate {
   font-size: .6em;
   float: right;
+  vertical-align: top;
 }
 
 .comment {
@@ -381,6 +382,7 @@ a.btn:hover {
 textarea#comment {
   width: 80%;
   height: 75px;
+  margin-top: -18px;
 }
 
 
@@ -405,6 +407,15 @@ textarea#comment {
   text-decoration: none;
   color: #0586c1;
 }
+
+.deleteComment {
+  text-decoration: none;
+  float: right;
+  color: gray;
+  font-size: .5em;
+  margin-left: 5px;
+}
+
 
 
 

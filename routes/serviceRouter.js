@@ -88,6 +88,14 @@ router.post('/:id/comments', (req, res) => {
 		})
 })
 
+router.delete('/:id/comments/:commentId', (req, res) => {
+	Comment
+		.findByIdAndDelete(req.params.commentId)
+		.then(req.flash('success', 'Comment Successfully Deleted!'))
+		.then(res.redirect('back'))
+		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+});
+
 router.put('/:id', (req, res) => {
 	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
 		const message = (

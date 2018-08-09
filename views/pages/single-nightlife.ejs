@@ -32,7 +32,13 @@
     	<ul class="commentSection">
     		<% nightlife.comments.forEach(comment =>  { %>
     			<li>
-            <span class="commentDate"><%= comment.date %></span>
+            <span class="commentDate"><%= comment.date %> 
+              <% if((user) && (user.username === 'admin')) {%>
+                <form class="deleteComment" method="POST" action="/nightlife/<%=nightlife.id%>/comments/<%=comment._id%>?_method=DELETE">
+                  <input type="submit" value="x"></input>
+                </form>
+              <%}%>
+          </span>
             <span class="commentUser"><%= comment.firstName %> from 
               <%= comment.hometown %> said:</span><br>
             <span class="comment">"<%= comment.comment %>"</span>
@@ -42,10 +48,11 @@
     <% } %>
 
  	</div>
-
- 	<form method="POST" action="/nightlife/<%=nightlife.id%>?_method=DELETE">
-  	<input class="deleteBtn" type="submit" value="Delete Listing"></input>
-	</form>
+  <% if((user) && (user.username === 'admin')) {%>
+   	<form method="POST" action="/nightlife/<%=nightlife.id%>?_method=DELETE">
+    	<input class="deleteBtn" type="submit" value="Delete Listing"></input>
+  	</form>
+  <%}%>
 
 <% include ../partials/footer %>
 
