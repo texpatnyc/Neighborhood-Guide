@@ -3,6 +3,8 @@
 	<div class="login">
 		<h1>Sign Up</h1>
 
+		<%- messages("message", locals) %>
+
 		<form class="signupForm" method="post" action="/users">
 			<input id="username" name="username" type="text" placeholder="Email Address" required></br>
 			<input id="password" name="password" type="text" placeholder="Password" required></br>
