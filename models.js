@@ -22,8 +22,6 @@ const userSchema = new mongoose.Schema({
   hometown: {type: String, default: ''}
 });
 
-// add password verification methods
-
 const commentSchema = new mongoose.Schema({
 	firstName: String,
 	hometown: String,

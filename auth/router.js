@@ -4,6 +4,7 @@ const passport = require('passport');
 
 const config = require('../config');
 const router = express.Router();
+let next;
 
 const localAuth = passport.authenticate('local', {
 	successRedirect: '/',
@@ -15,3 +16,5 @@ const localAuth = passport.authenticate('local', {
 router.post('/login', localAuth)
 
 module.exports = router;
+
+

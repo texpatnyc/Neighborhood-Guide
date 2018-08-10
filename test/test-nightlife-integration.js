@@ -24,28 +24,35 @@ function seedNightlifeData() {
 	return Nightlife.insertMany(seedData);
 }
 
-function generateBoroughName() {
-	const boroughs = ['Manhattan', 'Queens', 'Brooklyn'];
-	return boroughs[Math.floor(Math.random() * boroughs.length)];
-}
-
 function generateVenueType() {
 	const typeOfVenues = ['Bar', 'Nightclub', 'Cocktail Bar', 'Live Music Venue'];
 	return typeOfVenues[Math.floor(Math.random() * typeOfVenues.length)];
 }
 
+function generateFakeComments() {
+	const output = [];
+	for(let i=0; i<3; i++) {
+		output.push({
+			firstName: faker.name.firstName(),
+			hometown: faker.address.city(),
+			date: Date.now(),
+			comment: faker.lorem.sentence()
+		})
+	};
+	return output;
+}
+
 function generateNighlifeData() {
 	return {
 		name: faker.company.companyName(),
-		borough: generateBoroughName(),
 		typeOfVenue: generateVenueType(),
-		address: {
-			building: faker.address.streetAddress(),
-			street: faker.address.streetName(),
-			zipcode: faker.address.zipCode()
-		},
+		address: faker.address.streetAddress(),
+		phone: faker.phone.phoneNumberFormat(),
+		webUrl: faker.internet.url(),
+		photoLink: faker.image.business(),
 		description: faker.lorem.sentence(),
-		addedBy: faker.name.findName()
+		addedBy: faker.name.findName(),
+		comments: generateFakeComments()
 	};
 }
 
@@ -102,7 +109,7 @@ describe('Nightlife API resource', function() {
 					res.body.nightlife.forEach(function(nightlife) {
 						expect(nightlife).to.be.a('object');
 						expect(nightlife).to.include.keys(
-							'id', 'name', 'typeOfVenue', 'borough', 'description', 'address', 'addedBy');
+							'id', 'name', 'typeOfVenue', 'phone', 'description', 'address', 'comments', 'webUrl', 'photoLink');
 					});
 					resNightlife = res.body.nightlife[0];
 					return Nightlife.findById(resNightlife.id);
@@ -111,10 +118,12 @@ describe('Nightlife API resource', function() {
 					expect(resNightlife.id).to.equal(nightlife.id);
 					expect(resNightlife.name).to.equal(nightlife.name);
 					expect(resNightlife.typeOfVenue).to.equal(nightlife.typeOfVenue);
-					expect(resNightlife.borough).to.equal(nightlife.borough);
-					expect(resNightlife.address).to.contain(nightlife.address.building);
+					expect(resNightlife.phone).to.equal(nightlife.phone);
+					expect(resNightlife.address).to.equal(nightlife.address);
 					expect(resNightlife.description).to.equal(nightlife.description);
-					expect(resNightlife.addedBy).to.equal(nightlife.addedBy);
+					expect(resNightlife.webUrl).to.equal(nightlife.webUrl);
+					expect(resNightlife.photoLink).to.equal(nightlife.photoLink);
+					expect(resNightlife.comments).to.deep.equal(nightlife.comments);
 				});
 		});
 	});

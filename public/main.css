@@ -251,21 +251,12 @@ a.btn:hover {
   box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.addNewForm input[type="submit"] {
-  background: #ef3f5a;
-  border: 1px solid #ef3f5a;
-  color: #fff;
-  padding: 0 30px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.addNewForm input[type="submit"]:hover {
+.addNewForm input[type="submit"]:hover, .login input[type="submit"]:hover {
   background: #d73851;
   border: 1px solid #d73851;
 }
 
-.addNewForm input[type="text"], select{
+.addNewForm input[type="text"], select, .login input[type="text"] {
   border: 0;
   width: 300px;
   height: 30px;
@@ -283,7 +274,7 @@ a.btn:hover {
   box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.addNewForm input[type="submit"] {
+.addNewForm input[type="submit"], .login input[type="submit"] {
   width: 150px;
   height: 40px;
   background: #ef3f5a;
