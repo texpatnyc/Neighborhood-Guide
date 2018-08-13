@@ -23,8 +23,11 @@ const userSchema = new mongoose.Schema({
 });
 
 const commentSchema = new mongoose.Schema({
-	firstName: String,
-	hometown: String,
+	addedBy: {
+		firstName: String,
+		hometown: String,
+		userId: String
+	},
 	date: Date,
 	comment: String
 });

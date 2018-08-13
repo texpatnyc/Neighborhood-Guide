@@ -18,6 +18,7 @@
       	<textarea id="comment" name="comment" placeholder="Tell us what you think!" required></textarea>
         <input class="hiddenInput" name="hometown" type="hidden" value="<%=user.hometown%>">
         <input class="hiddenInput" name="firstName" type="hidden" value="<%=user.firstName%>">
+        <input class="hiddenInput" name="userId" type="hidden" value="<%=user._id%>">
         <br>
       	<input type="submit" name="submit" value="Submit">
       </form>  
@@ -33,14 +34,14 @@
     		<% nightlife.comments.forEach(comment =>  { %>
     			<li>
             <span class="commentDate"><%= comment.date %> 
-              <% if((user) && (user.username === 'admin')) {%>
-                <form class="deleteComment" method="POST" action="/nightlife/<%=nightlife.id%>/comments/<%=comment._id%>?_method=DELETE">
+              <% if((user) && ((user.username === 'admin') || (user._id == comment.addedBy.userId))) {%>
+                <form class="deleteComment" method="POST" action="/nightlife/<%=nightlife.id%>/comments/<%=comment._id%>?_method=DELETE&commentUserId=<%=comment.addedBy.userId%>">
                   <input type="submit" value="x"></input>
                 </form>
               <%}%>
           </span>
-            <span class="commentUser"><%= comment.firstName %> from 
-              <%= comment.hometown %> said:</span><br>
+            <span class="commentUser"><%= comment.addedBy.firstName %> from 
+              <%= comment.addedBy.hometown %> said:</span><br>
             <span class="comment">"<%= comment.comment %>"</span>
           </li>
     		<% }) %>

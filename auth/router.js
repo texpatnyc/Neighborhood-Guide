@@ -6,14 +6,33 @@ const config = require('../config');
 const router = express.Router();
 let next;
 
-const localAuth = passport.authenticate('local', {
-	successRedirect: '/',
-	failureRedirect: '/login',
-	failureFlash: true
-});
+// const localAuth = passport.authenticate('local', {
+// 	successRedirect: '/',
+// 	failureRedirect: '/login',
+// 	failureFlash: true
+// });
 
 // The user provides a username and password to login
-router.post('/login', localAuth)
+router.post('/login', function(req, res, next) {
+	console.log(req.body);
+	passport.authenticate('local', function(error, user, info) {
+		if (error) {
+			return next(error);
+		}
+		if (!user) {
+			return res.redirect('/login');
+		}
+		req.logIn(user, function(err) {
+			if (err) {
+				return next(err);
+			}
+			if (req.body.next) {
+				return res.redirect(req.body.next);
+			}
+			return res.redirect('/');
+		})
+	})(req, res, next)
+})
 
 module.exports = router;
 

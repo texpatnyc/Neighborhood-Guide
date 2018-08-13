@@ -356,6 +356,25 @@ a.btn:hover {
   margin-top: 7px;
 }
 
+.addComment input[type="submit"] {
+  width: 70px;
+  height: 30px;
+  background: #ef3f5a;
+  border: 1px solid #ef3f5a;
+  color: #fff;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
+  margin-top: 5px;
+  font-size: .8em;
+}
+
+.addComment input[type="submit"]:hover {
+  background: #d73851;
+  border: 1px solid #d73851;
+}
+
 .deleteBtn {
   color: #fff;
   padding: 10px;

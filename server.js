@@ -11,6 +11,7 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo')(session);
 
 mongoose.Promise = global.Promise;
 
@@ -32,6 +33,7 @@ app.use(cookieParser());
 // Express Session Middleware
 app.use(session({
   secret: 'snoop dogg',
+  store: new MongoStore({mongooseConnection:mongoose.connection}),
   resave: false,
   saveUninitialized: false
 }));
@@ -61,7 +63,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-	res.render('login');
+	const next = req.query ? req.query.next : null;
+	res.render('login', {next});
 });
 
 app.get('/signup', (req, res) => {
@@ -95,6 +98,30 @@ app.use('/nightlife', nightlifeRouter);
 app.use('/services', serviceRouter);
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
+
+//------------------------------------------------------------
+//Admin and User Test Middleware
+//------------------------------------------------------------
+
+
+// function isAdminOrAuthor(req, res, next) {
+// 	if (req.user && (req.user.username === 'admin' || req.user._id == req.query.commentUserId)) {
+// 		next();
+// 	} else {
+// 		req.flash('failure', 'Not Authorized')
+// 		res.redirect('back')
+// 	}
+// }
+
+// function isAdmin(req, res, next) {
+// 	if (req.user && req.user.username === 'admin') {
+// 		next();
+// 	} else {
+// 		req.flash('failure', 'Not Authorized')
+// 		res.redirect('back')
+// 	}
+// }
+
 
 //------------------------------------------------------------
 //Server Functions

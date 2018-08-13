@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const bodyParser = require('body-parser');
 
 const {Nightlife, Comment} = require('../models');
 
@@ -74,8 +75,11 @@ router.post('/:id/comments', (req, res) => {
 	}
 
 	const obj = {
-				firstName: req.body.firstName,
-				hometown: req.body.hometown,
+				addedBy: {
+					firstName: req.body.firstName,
+					hometown: req.body.hometown,
+					userId: req.body.userId
+				},
 				comment: req.body.comment,
 				date: Date.now()
 			};
@@ -88,9 +92,27 @@ router.post('/:id/comments', (req, res) => {
 		})
 })
 
-router.delete('/:id/comments/:commentId', (req, res) => {
-	Comment
-		.findByIdAndDelete(req.params.commentId)
+function isAdminOrAuthor(req, res, next) {
+	if (req.user && (req.user.username === 'admin' || req.user._id == req.query.commentUserId)) {
+		next();
+	} else {
+		req.flash('failure', 'Not Authorized')
+		res.redirect('back')
+	}
+}
+
+function isAdmin(req, res, next) {
+	if (req.user && req.user.username === 'admin') {
+		next();
+	} else {
+		req.flash('failure', 'Not Authorized')
+		res.redirect('back')
+	}
+}
+
+router.delete('/:id/comments/:commentId', isAdminOrAuthor, (req, res) => {
+	Nightlife
+		.findByIdAndUpdate(req.params.id, { $pull: { comments: {_id: req.params.commentId} } })
 		.then(req.flash('success', 'Comment Successfully Deleted!'))
 		.then(res.redirect('back'))
 		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
@@ -120,7 +142,7 @@ router.put('/:id', (req, res) => {
 		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isAdmin, (req, res) => {
 	Nightlife
 		.findByIdAndRemove(req.params.id)
 		.then(req.flash('success', 'Nightlife Successfully Deleted!'))
