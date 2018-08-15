@@ -189,13 +189,13 @@ a.btn:hover {
 }
 
 .listing {
-  display: inline-block;
+  display: block;
   background-color: rgba(255,255,255,0.8);
   border: 1px solid black;
   border-radius: 10px;
   padding: 10px;
   width: 450px;
-  margin: 10px;
+  margin: 10px auto;
   font-size: .9em;
   font-weight: 550;
 }
@@ -219,6 +219,9 @@ a.btn:hover {
   margin-left: auto;
   margin-right: auto;
   max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
 }
 
 .webUrl {
@@ -463,9 +466,88 @@ textarea#comment {
   margin-left: 5px;
 }
 
+@media only screen and (max-width: 1024px) {
 
+  #header {
+    font-size: .9em;
+    padding: 10px 50px 0;
+  }
 
+  #header nav a.btn {
+    padding: 7px;
+  }
 
+  #addNewLink {
+    font-size: 1.2em;
+    margin-top: -10px;
+  }
+
+  h1 {
+    font-size: 2.5em
+  }
+
+  .listing {
+    width: 425px;
+  }
+
+  .search-form {
+    width: 450px;
+  }
+
+  .addNewForm input[type="submit"], .login input[type="submit"] {
+    width: 125px;
+  }
+
+  .single-listing {
+    width: 575px;
+    font-size: 1em;
+  }
+
+  .center-cropped-single {
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+}
+
+@media only screen and (max-width: 900px) {
+
+  #header {
+    font-size: .8em;
+  }
+
+  #header nav a.btn {
+    padding: 5px;
+  }
+
+  #footer {
+    font-size: .9em;
+    padding-left: 70px;
+    padding-right: 70px;
+  }
+
+}
+
+@media only screen and (max-width: 735px) {
+
+  #header {
+    display: block;
+    width: 80%;
+    margin: auto;
+  }
+
+  #header h2 {
+    text-align: center;
+    font-size: 2em;
+  }
+
+  #header nav {
+    display: flex;
+  }
+
+  #header ul {
+    margin: auto;
+  }
 
 
 

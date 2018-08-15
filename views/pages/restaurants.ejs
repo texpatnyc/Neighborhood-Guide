@@ -6,9 +6,9 @@
 
 	<%- messages("message", locals) %>
 
-		<div class="full-list">
+		<ul class="full-list">
 		  <% restaurants.forEach((restaurant) => { %>
-		  	<div class="listing"> 
+		  	<li class="listing"> 
 	  			<a href="/restaurants/<%= restaurant._id %>">
 		  				<img src="<%= restaurant.photoLink %>" class="center-cropped" />
 			    	<h3><%= restaurant.name.toUpperCase() %></h3>
@@ -18,8 +18,8 @@
 		    	<%= restaurant.phone %><br>
 		    	<a href="<%= restaurant.webUrl %>"><%= restaurant.webUrl %></a>
 			    <p class="item-description"><%= restaurant.description %></p>
-			 	</div>
+			 	</li>
 		  <% }) %>
-		</div>
+		</ul>
 
 <% include ../partials/footer %>
