@@ -13,7 +13,6 @@ html, body {
   background-size: cover;
   color: #0a0a0b;
   height: 100%;
-/*  overflow: hidden;*/
 }
 
 #container {
@@ -47,8 +46,6 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-/*  overflow: hidden;
-  overflow-y: scroll;*/
 }
 
 #centered-main  {
@@ -71,10 +68,23 @@ html, body {
   bottom: 0;
   display: flex;
   float: right;
-/*  width: 100%;*/
+  width: 100%;
   height: 60px;
-  padding: 25px 100px;
+  padding-right: 100px;
+  padding-left: 100px;
   color: #fff;
+}
+
+#footer ul {
+  width: 100%;
+}
+
+#footer ul li:first-child {
+  float: left;
+}
+
+#footer ul li:last-child {
+  float: right;
 }
 
 #header a {
