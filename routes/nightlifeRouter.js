@@ -13,8 +13,8 @@ router.get('/', (req, res) => {
 			res.render('nightlife', {nightlife: nightlife})
 		})
 		.catch(err => {
-			console.error(err);
-			res.status(500).json({message: 'Internal Server Error'});
+			req.flash('error', 'Internal Server Error');
+			res.redirect('/nightlife')
 		});
 });
 
@@ -29,8 +29,8 @@ router.get('/:id', (req, res) => {
 			res.render('single-nightlife', {nightlife: nightlife})
 		})
 		.catch(err => {
-			console.error(err);
-			res.status(500).json({message: 'Internal Server Error'});
+			req.flash('error', 'Internal Server Error');
+			res.redirect('/nightlife')
 		});
 });
 
@@ -40,8 +40,8 @@ router.post('/', (req, res) => {
 		const field = requiredFields[i];
 		if (!(field in req.body)) {
 			const message = `Missing \`${field}\` in request body`;
-			console.error(message);
-			return res.status(400).send(message);
+			req.flash('error', message);
+			return res.redirect('back')
 		}
 	}
 
@@ -59,8 +59,8 @@ router.post('/', (req, res) => {
 		.then(req.flash('success', 'Nightlife Successfully Added!'))
 		.then(res.redirect('nightlife'))
 		.catch(err => {
-			console.error(err);
-			res.status(500).json({message: 'Internal Server Error'});
+			req.flash('error', 'Internal Server Error');
+			res.redirect('back')
 		});
 });
 
@@ -70,7 +70,8 @@ router.post('/:id/comments', (req, res) => {
 		const field = requiredFields[i];
 		if (!(field in req.body)) {
 			const message = `Missing \`${field}\` in request body`;
-			return res.status(400).send(message);
+			req.flash('error', message);
+			return res.redirect('back')
 		}
 	}
 
@@ -96,7 +97,7 @@ function isAdminOrAuthor(req, res, next) {
 	if (req.user && (req.user.username === 'admin' || req.user._id == req.query.commentUserId)) {
 		next();
 	} else {
-		req.flash('failure', 'Not Authorized')
+		req.flash('error', 'Not Authorized')
 		res.redirect('back')
 	}
 }
@@ -105,7 +106,7 @@ function isAdmin(req, res, next) {
 	if (req.user && req.user.username === 'admin') {
 		next();
 	} else {
-		req.flash('failure', 'Not Authorized')
+		req.flash('error', 'Not Authorized')
 		res.redirect('back')
 	}
 }
@@ -115,7 +116,10 @@ router.delete('/:id/comments/:commentId', isAdminOrAuthor, (req, res) => {
 		.findByIdAndUpdate(req.params.id, { $pull: { comments: {_id: req.params.commentId} } })
 		.then(req.flash('success', 'Comment Successfully Deleted!'))
 		.then(res.redirect('back'))
-		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+		.catch(err => {
+			req.flash('error', 'Internal Server Error');
+			res.redirect('back')
+		});
 });
 
 router.put('/:id', (req, res) => {
@@ -123,8 +127,8 @@ router.put('/:id', (req, res) => {
 		const message = (
 			`Request path id (${req.params.id}) and request body id ` +
 			`(${req.body.id}) must match`);
-		console.error(message);
-		return res.status(400).json({message: message});
+		req.flash('error', message);
+		return res.redirect('/nightlife/:id');
 	}
 	
 	const toUpdate = {};
@@ -138,8 +142,12 @@ router.put('/:id', (req, res) => {
 
 	Nightlife
 		.findByIdAndUpdate(req.params.id, {$set: toUpdate})
-		.then(nightlife => res.status(204).end())
-		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+		.then(req.flash('success', 'Nightlife Successfully Updated!'))
+		.then(res.redirect('back'))
+		.catch(err => {
+			req.flash('error', 'Internal Server Error');
+			res.redirect('back')
+		});
 });
 
 router.delete('/:id', isAdmin, (req, res) => {
@@ -147,7 +155,10 @@ router.delete('/:id', isAdmin, (req, res) => {
 		.findByIdAndRemove(req.params.id)
 		.then(req.flash('success', 'Nightlife Successfully Deleted!'))
 		.then(res.redirect('/nightlife'))
-		.catch(err => res.status(500).json({message: 'Internal Server Error'}));
+		.catch(err => {
+			req.flash('error', 'Internal Server Error');
+			res.redirect('back')
+		});
 });
 
 module.exports = router;
