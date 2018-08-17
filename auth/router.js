@@ -6,11 +6,6 @@ const config = require('../config');
 const router = express.Router();
 let next;
 
-// const localAuth = passport.authenticate('local', {
-// 	successRedirect: '/',
-// 	failureRedirect: '/login',
-// 	failureFlash: true
-// });
 
 // The user provides a username and password to login
 router.post('/login', function(req, res, next) {
@@ -20,6 +15,7 @@ router.post('/login', function(req, res, next) {
 			return next(error);
 		}
 		if (!user) {
+			req.flash('error', 'User/Pass Incorrect')
 			return res.redirect('/login');
 		}
 		req.logIn(user, function(err) {

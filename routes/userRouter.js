@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -7,6 +7,10 @@ const {User} = require('../models');
 const router = express.Router();
 
 const jsonParser = bodyParser.json();
+
+router.get('/edit', (req, res) => {
+  res.render('user')
+});
 
 router.post('/', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password'];
@@ -127,6 +131,7 @@ router.post('/', jsonParser, (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
+  console.log('delete is running!')
   User
     .findByIdAndRemove(req.params.id)
     .then(req.flash('success', 'User Successfully Deleted!'))

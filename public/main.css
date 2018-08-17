@@ -430,8 +430,42 @@ a.btn:hover {
   color: #fff;
 }
 
-.adminButtons {
+.adminButtons{
   display: flex;
+}
+
+.userButtons {
+  display: contents;
+}
+
+.logoutBtn {
+  background: #ef3f5a;
+  border: 1px solid #ef3f5a;
+  color: #fff;
+  padding: 10px 30px;
+  transition: all 0.2s;
+  margin: 0 5px;
+}
+
+.logoutBtn:hover {
+  background: #d73851;
+  border: 1px solid #d73851;  
+}
+
+.deleteAcctBtn {
+  color: #fff;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.5);
+  transition: all 0.2s;
+  background: transparent;
+  margin: 20px 5px;
+  font-size: .5em;
+}
+
+.deleteAcctBtn:hover {
+  background: #d73851;
+  border: 1px solid #d73851;
+  color: #fff;
 }
 
 textarea#comment {
