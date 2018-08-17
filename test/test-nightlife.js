@@ -55,9 +55,7 @@ function generateNighlifeData() {
 		phone: faker.phone.phoneNumberFormat(),
 		webUrl: faker.internet.url(),
 		photoLink: faker.image.business(),
-		description: faker.lorem.sentence(),
-		addedBy: faker.name.findName(),
-		comments: generateFakeComments()
+		description: faker.lorem.sentence()
 	};
 }
 
@@ -85,7 +83,7 @@ describe('Nightlife API resource', function() {
 		return closeServer();
 	});
 
-	describe.only('GET endpoint', function() {
+	describe('GET endpoint', function() {
 
 		it.only('should return all existing nightlife', function() {
 			let res;
@@ -99,51 +97,11 @@ describe('Nightlife API resource', function() {
 						console.log(seed.name);
 						expect(res.text).to.include(seed.name.toUpperCase());
 					})
-
-
-					// expect(res.header('Content-Type')).to.be('text/html');
-					// console.log(res.text);
-					// expect(res.body.nightlife).to.have.lengthOf.at.least(1);
-					// return Nightlife.count();
 				})
-				// .then(function(count) {
-				// 	// expect(res.body.nightlife).to.have.lengthOf(count);
-				// });
-		});
-
-		it('should return nightlife with the right fields', function() {
-			let resNightlife;
-			return chai.request(app)
-				.get('/nightlife')
-				.then(function(res) {
-					expect(res).to.have.status(200);
-					expect(res).to.be.json;
-					expect(res.body.nightlife).to.be.a('array');
-					expect(res.body.nightlife).to.have.lengthOf.at.least(1);
-
-					res.body.nightlife.forEach(function(nightlife) {
-						expect(nightlife).to.be.a('object');
-						expect(nightlife).to.include.keys(
-							'id', 'name', 'typeOfVenue', 'phone', 'description', 'address', 'comments', 'webUrl', 'photoLink');
-					});
-					resNightlife = res.body.nightlife[0];
-					return Nightlife.findById(resNightlife.id);
-				})
-				.then(function(nightlife) {
-					expect(resNightlife.id).to.equal(nightlife.id);
-					expect(resNightlife.name).to.equal(nightlife.name);
-					expect(resNightlife.typeOfVenue).to.equal(nightlife.typeOfVenue);
-					expect(resNightlife.phone).to.equal(nightlife.phone);
-					expect(resNightlife.address).to.equal(nightlife.address);
-					expect(resNightlife.description).to.equal(nightlife.description);
-					expect(resNightlife.webUrl).to.equal(nightlife.webUrl);
-					expect(resNightlife.photoLink).to.equal(nightlife.photoLink);
-					expect(resNightlife.comments).to.deep.equal(nightlife.comments);
-				});
 		});
 	});
 
-	describe('POST endpoint', function() {
+	describe.only('POST endpoint', function() {
 
 		it('should add a new nightlife', function() {
 			const newNightlife = generateNighlifeData();
@@ -152,25 +110,10 @@ describe('Nightlife API resource', function() {
 				.post('/nightlife')
 				.send(newNightlife)
 				.then(function(res) {
-					expect(res).to.have.status(201);
-					expect(res).to.be.json;
-					expect(res.body).to.be.a('object');
-					expect(res.body).to.include.keys(
-							'id', 'name', 'typeOfVenue', 'borough', 'description', 'address', 'addedBy');
-					expect(res.body.name).to.equal(newNightlife.name);
-					expect(res.body.id).to.not.be.null;
-					expect(res.body.typeOfVenue).to.equal(newNightlife.typeOfVenue);
-					expect(res.body.borough).to.equal(newNightlife.borough);
-					return Nightlife.findById(res.body.id);
+					expect(res.text).to.include(newNightlife.name.toUpperCase());
+					expect(res.text).to.include(newNightlife.address);
+					expect(res.text).to.include(newNightlife.description);
 				})
-				.then(function(nightlife) {
-					expect(nightlife.name).to.equal(newNightlife.name);
-					expect(nightlife.typeOfVenue).to.equal(newNightlife.typeOfVenue);
-					expect(nightlife.borough).to.equal(newNightlife.borough);
-					expect(nightlife.address.building).to.equal(newNightlife.address.building);
-					expect(nightlife.address.street).to.equal(newNightlife.address.street);
-					expect(nightlife.address.zipcode).to.equal(newNightlife.address.zipcode);
-				});
 		});
 	});
 
@@ -222,20 +165,3 @@ describe('Nightlife API resource', function() {
 		});
 	});
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
