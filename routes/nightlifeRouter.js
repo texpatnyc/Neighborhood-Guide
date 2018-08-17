@@ -34,17 +34,19 @@ router.get('/:id', (req, res) => {
 		});
 });
 
-router.post('/', (req, res) => {
-	const requiredFields = ['name', 'typeOfVenue', 'address', 'phone', 'webUrl', 'description'];
-	for (let i=0; i<requiredFields.length; i++) {
-		const field = requiredFields[i];
-		if (!(field in req.body)) {
-			const message = `Missing \`${field}\` in request body`;
-			req.flash('error', message);
-			return res.redirect('back')
-		}
-	}
+router.get('/:id/edit', (req, res) => {
+	Nightlife
+		.findById(req.params.id)
+		.then(nightlife => {
+			res.render('edit-nightlife', {nightlife: nightlife})
+		})
+		.catch(err => {
+			req.flash('error', 'Internal Server Error');
+			res.redirect('back')
+		});
+});
 
+router.post('/', (req, res) => {
 	Nightlife
 		.create({
 			name: req.body.name,
@@ -71,7 +73,7 @@ router.post('/:id/comments', (req, res) => {
 		if (!(field in req.body)) {
 			const message = `Missing \`${field}\` in request body`;
 			req.flash('error', message);
-			return res.redirect('back')
+			return res.redirect('back');
 		}
 	}
 
@@ -122,17 +124,17 @@ router.delete('/:id/comments/:commentId', isAdminOrAuthor, (req, res) => {
 		});
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', isAdmin, (req, res) => {
 	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
 		const message = (
 			`Request path id (${req.params.id}) and request body id ` +
 			`(${req.body.id}) must match`);
 		req.flash('error', message);
-		return res.redirect('/nightlife/:id');
+		return res.redirect('back');
 	}
 	
 	const toUpdate = {};
-	const updateableFields = ['name', 'borough', 'typeOfVenue', 'address', 'description'];
+	const updateableFields = ['typeOfVenue', 'address', 'phone', 'webUrl', 'photoLink', 'description'];
 
 	updateableFields.forEach(field => {
 		if (field in req.body) {
@@ -143,7 +145,7 @@ router.put('/:id', (req, res) => {
 	Nightlife
 		.findByIdAndUpdate(req.params.id, {$set: toUpdate})
 		.then(req.flash('success', 'Nightlife Successfully Updated!'))
-		.then(res.redirect('back'))
+		.then(res.redirect(`/nightlife/${req.params.id}`))
 		.catch(err => {
 			req.flash('error', 'Internal Server Error');
 			res.redirect('back')

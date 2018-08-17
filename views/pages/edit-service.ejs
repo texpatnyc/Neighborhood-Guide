@@ -1,0 +1,31 @@
+<% include ../partials/centered-head %>
+
+		<h1>Editing: (<%= service.name %>):</h1>
+
+			<%- messages("message", locals) %>
+
+		<form class="addNewForm" method="post" action="/services/<%= service.id %>?_method=PUT">
+
+			<input type="hidden" name="id" class="addNewTextbox" value="<%= service.id %>">
+
+			<select id="typeOfService" name="typeOfService" class="addNewDropdown" value="<%= service.typeOfService %>" required>
+				<option value="<%= service.typeOfService %>"><%= service.typeOfService %></option>
+				<option value="Grocery Store">Grocery Store</option>
+				<option value="Liquor Store">Liquor Store</option>
+				<option value="Drugstore">Drugstore</option>
+				<option value="Laundry / Dry Cleaner">Laundry / Dry Cleaner</option>
+				<option value="Massage">Massage</option>
+				<option value="Bodega (Convenience Store)">Bodega (Convenience Store)</option>
+				<option value="Hospital / Clinic">Hospital / Clinic</option>
+				<option value="Other">Other</option>
+			</select><br>	
+
+			<input id="address" name="address" type="text" placeholder="Address" value="<%= service.address %>" required></br>
+			<input id="phone" name="phone" type="text" placeholder="Phone #" value="<%= service.phone %>"></br>
+			<input id="webUrl" name="webUrl" type="text" placeholder="Website" value="<%= service.webUrl %>"></br>
+			<input id="photoLink" name="photoLink" type="text" placeholder="Photo Link" value="<%= service.photoLink %>"></br>
+			<textarea id="description" name="description" type="text" placeholder="Brief Description" required><%= service.description %></textarea><br>
+			<input name="submit" type="submit" value="Submit">
+		</form>
+
+<% include ../partials/add-new-footer %>

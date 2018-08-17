@@ -34,16 +34,28 @@ router.get('/:id', (req, res) => {
 		});
 });
 
+router.get('/:id/edit', (req, res) => {
+	Restaurant
+		.findById(req.params.id)
+		.then(restaurant => {
+			res.render('edit-restaurant', {restaurant: restaurant})
+		})
+		.catch(err => {
+			req.flash('error', 'Internal Server Error');
+			res.redirect('back')
+		});
+});
+
 router.post('/', (req, res) => {
-	const requiredFields = ['name', 'cuisine', 'address', 'phone', 'webUrl', 'description'];
-	for (let i=0; i<requiredFields.length; i++) {
-		const field = requiredFields[i];
-		if (!(field in req.body)) {
-			const message = `Missing \`${field}\` in request body`;
-			req.flash('error', message);
-			return res.redirect('back')
-		}
-	}
+	// const requiredFields = ['name', 'cuisine', 'address', 'phone', 'webUrl', 'description'];
+	// for (let i=0; i<requiredFields.length; i++) {
+	// 	const field = requiredFields[i];
+	// 	if (!(field in req.body)) {
+	// 		const message = `Missing \`${field}\` in request body`;
+	// 		req.flash('error', message);
+	// 		return res.redirect('back')
+	// 	}
+	// }
 
 	Restaurant
 		.create({
@@ -122,7 +134,8 @@ router.delete('/:id/comments/:commentId', isAdminOrAuthor, (req, res) => {
 		});
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', isAdmin, (req, res) => {
+	console.log('put is running')
 	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
 		const message = (
 			`Request path id (${req.params.id}) and request body id ` +
@@ -132,7 +145,7 @@ router.put('/:id', (req, res) => {
 	}
 	
 	const toUpdate = {};
-	const updateableFields = ['name', 'borough', 'cuisine', 'address', 'description'];
+	const updateableFields = ['typeOfCuisine', 'address', 'phone', 'webUrl', 'photoLink', 'description'];
 
 	updateableFields.forEach(field => {
 		if (field in req.body) {
@@ -143,7 +156,7 @@ router.put('/:id', (req, res) => {
 	Restaurant
 		.findByIdAndUpdate(req.params.id, {$set: toUpdate})
 		.then(req.flash('success', 'Restaurant Successfully Updated!'))
-		.then(res.redirect('back'))
+		.then(res.redirect(`/restaurants/${req.params.id}`))
 		.catch(err => {
 			req.flash('error', 'Internal Server Error');
 			res.redirect('back')

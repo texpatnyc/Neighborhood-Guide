@@ -415,18 +415,23 @@ a.btn:hover {
   border: 1px solid #d73851;
 }
 
-.deleteBtn {
+.deleteBtn, .editBtn {
   color: #fff;
   padding: 10px;
   border: 1px solid rgba(255,255,255,0.5);
   transition: all 0.2s;
   background: transparent;
+  margin: 0 5px;
 }
 
-.deleteBtn:hover {
+.deleteBtn:hover, .editBtn:hover {
   background: #d73851;
   border: 1px solid #d73851;
   color: #fff;
+}
+
+.adminButtons {
+  display: flex;
 }
 
 textarea#comment {

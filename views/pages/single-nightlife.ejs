@@ -50,9 +50,16 @@
 
  	</div>
   <% if((user) && (user.username === 'admin')) {%>
-   	<form method="POST" action="/nightlife/<%=nightlife.id%>?_method=DELETE">
-    	<input class="deleteBtn" type="submit" value="Delete Listing"></input>
-  	</form>
+    <div class="adminButtons">
+     	<form method="GET" action="/nightlife/<%=nightlife.id%>/edit">
+        <input class="editBtn" type="submit" value="Edit Listing"></input>
+      </form>
+
+      <form method="POST" action="/nightlife/<%=nightlife.id%>?_method=DELETE">
+      	<input class="deleteBtn" type="submit" value="Delete Listing"></input>
+    	</form>
+    </div>
+
   <%}%>
 
 <% include ../partials/footer %>

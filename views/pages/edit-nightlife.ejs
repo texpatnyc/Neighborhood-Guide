@@ -1,0 +1,32 @@
+<% include ../partials/centered-head %>
+
+		<h1>Editing: (<%= nightlife.name %>):</h1>
+
+			<%- messages("message", locals) %>
+
+		<form class="addNewForm" method="post" action="/nightlife/<%= nightlife.id %>?_method=PUT">
+
+			<input type="hidden" name="id" class="addNewTextbox" value="<%= nightlife.id %>">
+
+			<select id="typeOfVenue" name="typeOfVenue" class="addNewDropdown" value="<%= nightlife.typeOfVenue %>" required>
+				<option value="<%= nightlife.typeOfVenue %>"><%= nightlife.typeOfVenue %></option>
+				<option value="Bar">Bar</option>
+				<option value="Dive Bar">Dive Bar</option>
+				<option value="Cocktail Bar">Cocktail Bar</option>
+				<option value="Nightclub">Nightclub</option>
+				<option value="Live Music Venue">Live Music Venue</option>
+				<option value="Lounge">Lounge</option>
+				<option value="Hotel Bar">Hotel Bar</option>
+				<option value="Pub">Pub</option>
+				<option value="Other">Other</option>
+			</select><br>	
+
+			<input id="address" name="address" type="text" placeholder="Address" value="<%= nightlife.address %>" required></br>
+			<input id="phone" name="phone" type="text" placeholder="Phone #" value="<%= nightlife.phone %>"></br>
+			<input id="webUrl" name="webUrl" type="text" placeholder="Website" value="<%= nightlife.webUrl %>"></br>
+			<input id="photoLink" name="photoLink" type="text" placeholder="Photo Link" value="<%= nightlife.photoLink %>"></br>
+			<textarea id="description" name="description" type="text" placeholder="Brief Description" required><%= nightlife.description %></textarea><br>
+			<input name="submit" type="submit" value="Submit">
+		</form>
+
+<% include ../partials/add-new-footer %>
