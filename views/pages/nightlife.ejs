@@ -6,20 +6,28 @@
 
 	<%- messages("message", locals) %>
 
-	<div class="full-list">
+	<ul class="full-list">
 	  <% nightlife.forEach((nightlife) => { %>
-	  	<div class="listing"> 
+	  	<li class="listing">
   			<a href="/nightlife/<%= nightlife._id %>">
+  				<% if(nightlife.photoLink) { %>
 	  				<img src="<%= nightlife.photoLink %>" class="center-cropped" />
-		    	<h3><%= nightlife.name.toUpperCase() %></h3>
+	  			<% } %>
+		    	<h3><%- nightlife.name.toUpperCase() %></h3>
 		    	<h4>(<%= nightlife.typeOfVenue %>)</h4>
 		  	</a>
-	    	<%= nightlife.address %><br>
-	    	<%= nightlife.phone %><br>
-	    	<a href="<%= nightlife.webUrl %>"><%= nightlife.webUrl %></a>
+	    	<%= nightlife.address %>
+	    	<% if(nightlife.phone) { %>
+		    	<br>
+		    	<%= nightlife.phone %>
+		    <% } %>
+		    <% if(nightlife.webUrl) { %>
+		    	<br>
+	    		<a href="<%- nightlife.webUrl %>"><%= nightlife.webUrl %></a>
+	    	<% } %>
 		    <p class="item-description"><%= nightlife.description %></p>
-		 	</div>
+		 	</li>
 	  <% }) %>
-	</div>
+	</ul>
 
 <% include ../partials/footer %>

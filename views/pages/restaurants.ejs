@@ -8,17 +8,25 @@
 
 		<ul class="full-list">
 		  <% restaurants.forEach((restaurant) => { %>
-		  	<li class="listing"> 
-	  			<a href="/restaurants/<%= restaurant._id %>">
-		  				<img src="<%= restaurant.photoLink %>" class="center-cropped" />
-			    	<h3><%= restaurant.name.toUpperCase() %></h3>
-			    	<h4>(<%= restaurant.cuisine %>)</h4>
-			  	</a>
-		    	<%= restaurant.address %><br>
-		    	<%= restaurant.phone %><br>
-		    	<a href="<%= restaurant.webUrl %>"><%= restaurant.webUrl %></a>
-			    <p class="item-description"><%= restaurant.description %></p>
-			 	</li>
+		  	<li class="listing">
+  			<a href="/restaurants/<%= restaurant._id %>">
+  				<% if(restaurant.photoLink) { %>
+	  				<img src="<%= restaurant.photoLink %>" class="center-cropped" />
+	  			<% } %>
+		    	<h3><%- restaurant.name.toUpperCase() %></h3>
+		    	<h4>(<%= restaurant.cuisine %>)</h4>
+		  	</a>
+	    	<%= restaurant.address %>
+	    	<% if(restaurant.phone) { %>
+		    	<br>
+		    	<%= restaurant.phone %>
+		    <% } %>
+		    <% if(restaurant.webUrl) { %>
+		    	<br>
+	    		<a href="<%- restaurant.webUrl %>"><%= restaurant.webUrl %></a>
+	    	<% } %>
+		    <p class="item-description"><%= restaurant.description %></p>
+		 	</li>
 		  <% }) %>
 		</ul>
 

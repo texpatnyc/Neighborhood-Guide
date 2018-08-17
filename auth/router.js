@@ -9,7 +9,6 @@ let next;
 
 // The user provides a username and password to login
 router.post('/login', function(req, res, next) {
-	console.log(req.body);
 	passport.authenticate('local', function(error, user, info) {
 		if (error) {
 			return next(error);

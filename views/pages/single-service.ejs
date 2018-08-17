@@ -2,13 +2,23 @@
 
 	<%- messages("message", locals) %>
 
-	<div class="single-listing"> 
-		<img src="<%= service.photoLink %>" class="center-cropped-single" />
+	<div class="single-listing">
+    <% if(service.photoLink) { %>
+		  <img src="<%= service.photoLink %>" class="center-cropped-single" />
+    <% } %>
   	<h1><%= service.name %></h1>
   	<h2>(<%= service.typeOfService %>)</h2>
-  	<%= service.address %><br>
-  	<%= service.phone %><br>
-  	<a href="<%= service.webUrl %>"><%= service.webUrl %></a>
+  	<p>
+      <%= service.address %>
+      <% if(service.phone) { %>
+        <br>
+        <%= service.phone %>
+      <% } %>
+      <% if(service.webUrl) { %>
+        <br>
+        <a href="<%= service.webUrl %>"><%= service.webUrl %></a>
+      <% } %>
+    </p>
     <p class="item-description"><%= service.description %></p>
 
     <% if (user) {%>

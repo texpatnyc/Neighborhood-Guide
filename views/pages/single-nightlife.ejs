@@ -2,13 +2,23 @@
 
 	<%- messages("message", locals) %>
 
-	<div class="single-listing"> 
-		<img src="<%= nightlife.photoLink %>" class="center-cropped-single" />
-  	<h1><%= nightlife.name %></h1>
-  	<h2>(<%= nightlife.typeOfVenue %>)</h2>
-  	<%= nightlife.address %><br>
-  	<%= nightlife.phone %><br>
-  	<a href="<%= nightlife.webUrl %>"><%= nightlife.webUrl %></a>
+	<div class="single-listing">
+    <% if(nightlife.photoLink) { %>
+      <img src="<%= nightlife.photoLink %>" class="center-cropped-single" />
+    <% } %>
+    <h1><%= nightlife.name %></h1>
+    <h2>(<%= nightlife.typeOfVenue %>)</h2>
+    <p>
+      <%= nightlife.address %>
+      <% if(nightlife.phone) { %>
+        <br>
+        <%= nightlife.phone %>
+      <% } %>
+      <% if(nightlife.webUrl) { %>
+        <br>
+        <a href="<%= nightlife.webUrl %>"><%= nightlife.webUrl %></a>
+      <% } %>
+    </p>
     <p class="item-description"><%= nightlife.description %></p>
 
     <% if (user) {%>

@@ -2,13 +2,23 @@
 
 	<%- messages("message", locals) %>
 
-	<div class="single-listing"> 
-		<img src="<%= restaurant.photoLink %>" class="center-cropped-single" />
-  	<h1><%= restaurant.name %></h1>
-  	<h2>(<%= restaurant.cuisine %>)</h2>
-  	<%= restaurant.address %><br>
-  	<%= restaurant.phone %><br>
-  	<a href="<%= restaurant.webUrl %>"><%= restaurant.webUrl %></a>
+	<div class="single-listing">
+    <% if(restaurant.photoLink) { %>
+      <img src="<%= restaurant.photoLink %>" class="center-cropped-single" />
+    <% } %>
+    <h1><%= restaurant.name %></h1>
+    <h2>(<%= restaurant.cuisine %>)</h2>
+    <p>
+      <%= restaurant.address %>
+      <% if(restaurant.phone) { %>
+        <br>
+        <%= restaurant.phone %>
+      <% } %>
+      <% if(restaurant.webUrl) { %>
+        <br>
+        <a href="<%= restaurant.webUrl %>"><%= restaurant.webUrl %></a>
+      <% } %>
+    </p>
     <p class="item-description"><%= restaurant.description %></p>
 
     <% if (user) {%>

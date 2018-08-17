@@ -6,20 +6,28 @@
 
 	<%- messages("message", locals) %>
 
-	<div class="full-list">
+	<ul class="full-list">
 	  <% services.forEach((service) => { %>
-	  	<div class="listing"> 
+	  	<li class="listing">
   			<a href="/services/<%= service._id %>">
+  				<% if(service.photoLink) { %>
 	  				<img src="<%= service.photoLink %>" class="center-cropped" />
-		    	<h3><%= service.name.toUpperCase() %></h3>
+	  			<% } %>
+		    	<h3><%- service.name.toUpperCase() %></h3>
 		    	<h4>(<%= service.typeOfService %>)</h4>
 		  	</a>
-	    	<%= service.address %><br>
-	    	<%= service.phone %><br>
-	    	<a class="webUrl" href="<%= service.webUrl %>"><%= service.webUrl %></a>
+	    	<%= service.address %>
+	    	<% if(service.phone) { %>
+		    	<br>
+		    	<%= service.phone %>
+		    <% } %>
+		    <% if(service.webUrl) { %>
+		    	<br>
+	    		<a href="<%- service.webUrl %>"><%= service.webUrl %></a>
+	    	<% } %>
 		    <p class="item-description"><%= service.description %></p>
-		 	</div>
+		 	</li>
 	  <% }) %>
-	</div>
+	</ul>
 
 <% include ../partials/footer %>

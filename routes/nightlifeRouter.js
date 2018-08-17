@@ -47,6 +47,16 @@ router.get('/:id/edit', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+	const requiredFields = ['name', 'typeOfVenue', 'address', 'description'];
+	for (let i=0; i<requiredFields.length; i++) {
+		const field = requiredFields[i];
+		if (!(field in req.body)) {
+			const message = `Missing \`${field}\` in request body`;
+			req.flash('error', message);
+			return res.redirect('back')
+		}
+	}
+
 	Nightlife
 		.create({
 			name: req.body.name,
@@ -56,7 +66,6 @@ router.post('/', (req, res) => {
 			webUrl: req.body.webUrl,
 			photoLink: req.body.photoLink,
 			description: req.body.description,
-			addedBy: req.body.addedBy
 		})
 		.then(req.flash('success', 'Nightlife Successfully Added!'))
 		.then(res.redirect('nightlife'))

@@ -8,7 +8,6 @@
 
 		<div class="userButtons">
 	   	<a href="/logout"><span class="logoutBtn">Log Out</span></a>
-<!-- 	   	<a class="userBtn" href="/users/<%=user.id%>?_method=DELETE">Delete Account</a> -->
 	   	<form method="POST" action="/users/<%=user.id%>?_method=DELETE">
         <input class="deleteAcctBtn" type="submit" value="Delete Account"></input>
       </form>
