@@ -6,6 +6,24 @@ const bodyParser = require('body-parser');
 
 const {Nightlife, Comment} = require('../models');
 
+function isAdminOrAuthor(req, res, next) {
+	if (req.user && (req.user.username === 'admin' || req.user._id == req.query.commentUserId)) {
+		next();
+	} else {
+		req.flash('error', 'Not Authorized')
+		res.redirect('back')
+	}
+}
+
+function isAdmin(req, res, next) {
+	if (req.user && req.user.username === 'admin') {
+		next();
+	} else {
+		req.flash('error', 'Not Authorized')
+		res.redirect('back')
+	}
+}
+
 router.get('/', (req, res) => {
 	Nightlife
 		.find()
@@ -103,24 +121,6 @@ router.post('/:id/comments', (req, res) => {
 			res.redirect('/nightlife/'+ req.params.id)
 		})
 })
-
-function isAdminOrAuthor(req, res, next) {
-	if (req.user && (req.user.username === 'admin' || req.user._id == req.query.commentUserId)) {
-		next();
-	} else {
-		req.flash('error', 'Not Authorized')
-		res.redirect('back')
-	}
-}
-
-function isAdmin(req, res, next) {
-	if (req.user && req.user.username === 'admin') {
-		next();
-	} else {
-		req.flash('error', 'Not Authorized')
-		res.redirect('back')
-	}
-}
 
 router.delete('/:id/comments/:commentId', isAdminOrAuthor, (req, res) => {
 	Nightlife

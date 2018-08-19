@@ -4,10 +4,11 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const faker = require('faker/locale/en');
 const mongoose = require('mongoose');
+const request = require('supertest');
 
 const expect = chai.expect;
 
-const {Nightlife} = require('../models');
+const {Nightlife, User} = require('../models');
 const {app, runServer, closeServer} = require('../server');
 const {TEST_DATABASE_URL} = require('../config');
 
@@ -23,7 +24,27 @@ function seedNightlifeData() {
 	}
 	// console.timeEnd('beforeEach');
 	return Nightlife.insertMany(seedData)
-		.then(data => console.timeEnd('beforeEach'));
+}
+
+function seedUserData() {
+	console.info('Seeding Admin User Data');
+	const users = [
+		{
+			username: 'admin',
+			password: 'adminpass',
+			firstName: 'Admin',
+			lastName: 'Admin',
+			hometown: 'Outer Space'
+		},
+		{
+			username: 'testUser',
+			password: 'testPassword',
+			firstName: 'Joe',
+			lastName: 'Tester',
+			hometown: 'Test Town'   
+		}
+	];
+	return User.insertMany(users)
 }
 
 function generateVenueType() {
@@ -31,19 +52,13 @@ function generateVenueType() {
 	return typeOfVenues[Math.floor(Math.random() * typeOfVenues.length)];
 }
 
-function generateFakeComments() {
-	const output = [];
-	for(let i=0; i<3; i++) {
-		output.push({
-			addedBy: {
-				firstName: faker.name.firstName(),
-				hometown: faker.address.city(),
-				userId: faker.random.uuid()
-			},
-			date: Date.now(),
-			comment: faker.lorem.sentence()
-		})
-	};
+function generateFakeComment() {
+	const output = {
+		firstName: faker.name.firstName(),
+		hometown: faker.address.city(),
+		userId: faker.random.uuid(),
+		comment: faker.lorem.sentence()
+	}
 	return output;
 }
 
@@ -71,13 +86,16 @@ describe('Nightlife API resource', function() {
 	});
 
 	beforeEach(function() {
-		console.time('beforeEach');
 		return seedNightlifeData();
+	});
+
+	beforeEach(function() {
+		return seedUserData();
 	});
 
 	afterEach(function() {
 		return tearDownDb();
-	})
+	});
 
 	after(function() {
 		return closeServer();
@@ -85,7 +103,7 @@ describe('Nightlife API resource', function() {
 
 	describe('GET endpoint', function() {
 
-		it.only('should return all existing nightlife', function() {
+		it('should return all existing nightlife', function() {
 			let res;
 			return chai.request(app)
 				.get('/nightlife')
@@ -97,11 +115,11 @@ describe('Nightlife API resource', function() {
 						console.log(seed.name);
 						expect(res.text).to.include(seed.name.toUpperCase());
 					})
-				})
+				});
 		});
 	});
 
-	describe.only('POST endpoint', function() {
+	describe('POST endpoint', function() {
 
 		it('should add a new nightlife', function() {
 			const newNightlife = generateNighlifeData();
@@ -121,7 +139,8 @@ describe('Nightlife API resource', function() {
 
 		it('should update fields you send over', function() {
 			const updateData = {
-				name: 'Dumbest Nightlife Name Ever',
+				address: '123 Elm St',
+				phone: '646-555-5555',
 				typeOfVenue: 'Dogfood'
 			};
 
@@ -129,23 +148,55 @@ describe('Nightlife API resource', function() {
 				.findOne()
 				.then(function(nightlife) {
 					updateData.id = nightlife.id;
+					updateData.name = nightlife.name;
 					return chai.request(app)
 						.put(`/nightlife/${nightlife.id}`)
 						.send(updateData);
 				})
 				.then(function(res) {
-					expect(res).to.have.status(204);
+					expect(res.text).to.include(updateData.address);
+					expect(res.text).to.include(updateData.phone);
 					return Nightlife.findById(updateData.id);
 				})
 				.then(function(nightlife) {
-					expect(nightlife.name).to.equal(updateData.name);
 					expect(nightlife.typeOfVenue).to.equal(updateData.typeOfVenue);
 				});
 		});
 	});
 
+	describe('POST Comment Endpoint', function() {
 
-	describe('DELETE endpoint', function() {
+		it('should post the comment attached to the given listing', function() {
+			const newComment = generateFakeComment();
+
+			return Nightlife
+				.findOne()
+				.then(function(nightlife) {
+					return chai.request(app)
+						.post(`/nightlife/${nightlife.id}/comments`)
+						.send(newComment)
+						.then(function(res) {
+							console.log(res.text);
+							expect(res.text).to.include(newComment.comment);
+						})
+				});
+		});
+	});
+
+	describe.only('DELETE endpoint', function() {
+
+		before(function(done) {
+  		request(app)
+  			.post('/auth/local')
+		    .send({
+		      username: 'admin',
+		      password: 'adminpass'
+		    })
+		    .end(function(err, res) {
+		      if (err) throw err;
+		      done();
+    		});
+		});
 
 		it('should delete a nightlife by id', function() {
 			let nightlife;
@@ -153,15 +204,18 @@ describe('Nightlife API resource', function() {
 				.findOne()
 				.then(function(_nightlife) {
 					nightlife = _nightlife;
+					console.log(nightlife);
+					const user = {
+						username: 'admin'
+					};
 					return chai.request(app).delete(`/nightlife/${nightlife.id}`);
 				})
 				.then(function(res) {
-					expect(res).to.have.status(204);
-					return Nightlife.findById(nightlife.id);
+					console.log(user);
+					expect(res).to.have.status(200);
+					expect(res.text).to.not.include(nightlife.name);
+					expect(res.text).to.not.include('<h1 id="index-text">What can I help you find today?</h1>')
 				})
-				.then(function(_nightlife) {
-					expect(_nightlife).to.be.null;
-				});
-		});
+		})
 	});
-})
+});
