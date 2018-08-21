@@ -297,7 +297,7 @@ a.btn:hover {
 
 .addNewForm input[type="text"], select, .login input[type="text"] {
   border: 0;
-  width: 300px;
+  width: 90%;
   height: 30px;
   padding: 5px;
   margin-bottom: 5px;
@@ -429,8 +429,12 @@ a.btn:hover {
   color: #fff;
 }
 
-.adminButtons{
+.adminButtons {
   display: flex;
+}
+
+.adminButtons input[type="submit"] {
+  padding: 5px;
 }
 
 .userButtons {
@@ -441,7 +445,7 @@ a.btn:hover {
   background: #ef3f5a;
   border: 1px solid #ef3f5a;
   color: #fff;
-  padding: 10px 30px;
+  padding: 8px 15px;
   transition: all 0.2s;
   margin: 0 5px;
 }
@@ -475,7 +479,8 @@ textarea#comment {
 
 
 .login {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   text-align: center;
   background-color: rgba(255,255,255,0.8);
   border: 1px solid black;
@@ -520,7 +525,7 @@ textarea#comment {
     margin-top: -10px;
   }
 
-  h1 {
+  #main h1 {
     font-size: 2em
   }
 
@@ -538,7 +543,7 @@ textarea#comment {
   }
 
   .single-listing {
-    width: 575px;
+    width: 500px;
     font-size: 1em;
   }
 
@@ -613,11 +618,15 @@ textarea#comment {
 }
 
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 675px) {
 
   #header {
     display: block;
     margin: auto;
+  }
+
+  .index-nav {
+    font-size: .9em;
   }
 
   #header nav {
@@ -628,9 +637,21 @@ textarea#comment {
     margin-top: 10px;
   }
 
-  #main h1 {
+  h1 {
     font-size: 1.5em;
     text-shadow: 1px 1px 3px black;
+  }
+
+  .single-listing h1 {
+    text-shadow: none;
+    font-size: 1.8em;
+    margin-bottom: 28px;
+    margin-top: 0;
+  }
+
+  .center-cropped-single {
+    max-width: 100px;
+    max-height: 100px;
   }
 
   #header nav a.btn {
@@ -662,6 +683,93 @@ textarea#comment {
     max-width: 80px;
   }
 
+  .single-listing {
+    max-width: 90%;
+    font-size: 12px;
+  }
+
+  .single-listing {
+    margin-top: 0;
+    margin-bottom: 30px
+  }
+
+  textarea#comment {
+    height: 50px;
+    width: 100%;
+    margin-top: -10px;
+  }
+
+  .addComment input[type="submit"] {
+    width: 50px;
+    height: 20px;
+    font-size: .9em;
+    padding: 2px;
+  }
+
+  .deleteComment input[type="submit"] {
+    font-size: 2em;
+    padding: 2px;
+  }
+
+  .commentSection li {
+    padding: 4px;
+  }
+
+  .adminButtons input[type="submit"] {
+    font-size: 60%;
+    padding: 5px;
+  }
+
+  .adminButtons {
+    margin-top: -20px;
+  }
+
+  .search-form {
+    font-size: .8em;
+    max-width: 350px;
+    width: 100%;
+    line-height: 25px;
+  }
+
+  #search-term {
+    width: 100%;
+    line-height: 25px;
+    font-size: .8em;
+  }
+
+  .search-form input[type="submit"] {
+    width: 40%;
+    line-height: 25px;
+    font-size: .8em;
+  }
+
+  .addNewForm input[type="text"] {
+    width: 90%;
+    height: 25px;
+  }
+
+  #centered-main {
+    padding: 20px;
+  }
+
+  .addNewForm input[type="text"], .addNewDropdown {
+    font-size: .8em;
+    height: 25px;
+  }
+
+  .addNewForm textarea {
+    font-size: .8em;
+    height: 75px;
+    width: 90%;
+  }
+
+  .addNewForm input[type="submit"] {
+    height: 30px;
+    width: 80px;
+    font-size: .9em;
+    padding: 0;
+  }
+
 }
 
 @media only screen and (max-width: 375px) {
@@ -670,7 +778,11 @@ textarea#comment {
     font-size: 1.6em;
   }
 
-  #main h1 {
+  .index-nav {
+    font-size: .6em;
+  }
+
+  h1 {
     font-size: 1.2em;
     margin-top: -20px;
   }
@@ -696,6 +808,20 @@ textarea#comment {
 
   #header nav a.btn {
     padding: 3px;
+  }
+
+  .single-listing {
+    font-size: 10px;
+    max-width: 100%;
+  }
+
+  .login {
+    font-size: 14px;
+  }
+
+  .login h1 {
+    margin-top: 10px;
+    font-size: 2em;
   }
 
 }

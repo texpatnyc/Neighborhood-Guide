@@ -50,8 +50,7 @@
                 </form>
               <%}%>
           </span>
-            <span class="commentUser"><%= comment.addedBy.firstName %> from 
-              <%= comment.addedBy.hometown %> said:</span><br>
+            <span class="commentUser"><%= comment.addedBy.firstName %> from <%= comment.addedBy.hometown %> said:</span><br>
             <span class="comment">"<%= comment.comment %>"</span>
           </li>
         <% }) %>
