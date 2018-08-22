@@ -10,7 +10,7 @@ const {app} = require('../server');
 
 chai.use(chaiHttp);
 
-describe('Login/Auth Endpoint', function() {
+describe('Login/Auth Resource', function() {
 
   describe('POST endpoint', function() {
 
@@ -26,8 +26,6 @@ describe('Login/Auth Endpoint', function() {
         	expect(res.text).to.include('User/Pass Incorrect');
         	agent.close();
         })
-
-
     });
 
     it('should display create a connect.sid cookie when succefully logged in.', function() {
@@ -45,6 +43,7 @@ describe('Login/Auth Endpoint', function() {
     });
 
   });
+ 
 
 
 

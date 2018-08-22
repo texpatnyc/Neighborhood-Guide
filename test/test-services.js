@@ -7,7 +7,7 @@ const faker = require('faker/locale/en');
 
 const expect = chai.expect;
 
-const {Nightlife, User} = require('../models');
+const {Service, User} = require('../models');
 const {app} = require('../server');
 const {generateFakeComment} = require('./test-support');
 
@@ -15,24 +15,24 @@ chai.use(chaiHttp);
 
 let seedData = [];
 
-function seedNightlifeData() {
-	console.info('Seeding Nightlife Data');
+function seedServiceData() {
+	console.info('Seeding Service Data');
 	seedData = [];
 	for (let i=0; i<5; i++) {
-		seedData.push(generateNighlifeData());
+		seedData.push(generateServiceData());
 	}
-	return Nightlife.insertMany(seedData)
+	return Service.insertMany(seedData)
 }
 
-function generateVenueType() {
-	const typesOfVenues = ['Bar', 'Nightclub', 'Cocktail Bar', 'Live Music Venue'];
-	return typesOfVenues[Math.floor(Math.random() * typesOfVenues.length)];
+function generateServiceType() {
+	const typesOfCuisine = ['Grocery Store', 'Laundry', 'Liquor Store', 'Bodega'];
+	return typesOfCuisine[Math.floor(Math.random() * typesOfCuisine.length)];
 }
 
-function generateNighlifeData() {
+function generateServiceData() {
 	return {
 		name: faker.company.companyName(),
-		typeOfVenue: generateVenueType(),
+		typeOfService: generateServiceType(),
 		address: faker.address.streetAddress(),
 		phone: faker.phone.phoneNumberFormat(),
 		webUrl: faker.internet.url(),
@@ -41,19 +41,19 @@ function generateNighlifeData() {
 	};
 }
 
-describe('Nightlife API resource', function() {
+describe('Service API resource', function() {
 
 	beforeEach(function() {
-		return seedNightlifeData();
+		return seedServiceData();
 	});
 
 	describe('GET endpoint', function() {
 
-		it('should return all existing nightlife', function() {
+		it('should return all existing services', function() {
 			let res;
 			const agent = chai.request.agent(app);
 			return agent
-				.get('/nightlife')
+				.get('/services')
 				.then(function(_res) {
 					res = _res;
 					expect(res.headers['content-type']).to.equal('text/html; charset=utf-8')
@@ -68,17 +68,17 @@ describe('Nightlife API resource', function() {
 
 	describe('POST endpoint', function() {
 
-		it('should add a new nightlife', function() {
-			const newNightlife = generateNighlifeData();
+		it('should add a new service', function() {
+			const newService = generateServiceData();
 			const agent = chai.request.agent(app);
 
 			return agent
-				.post('/nightlife')
-				.send(newNightlife)
+				.post('/services')
+				.send(newService)
 				.then(function(res) {
-					expect(res.text).to.include(newNightlife.name.toUpperCase());
-					expect(res.text).to.include(newNightlife.address);
-					expect(res.text).to.include(newNightlife.description);
+					expect(res.text).to.include(newService.name.toUpperCase());
+					expect(res.text).to.include(newService.address);
+					expect(res.text).to.include(newService.description);
 					agent.close();
 				})
 		});
@@ -90,25 +90,25 @@ describe('Nightlife API resource', function() {
 			const updateData = {
 				address: '123 Elm St',
 				phone: '646-555-5555',
-				typeOfVenue: 'Dogfood'
+				typeOfService: 'Dogfood'
 			};
 
-			return Nightlife
+			return Service
 				.findOne()
-				.then(function(nightlife) {
-					updateData.id = nightlife.id;
-					updateData.name = nightlife.name;
+				.then(function(service) {
+					updateData.id = service.id;
+					updateData.name = service.name;
 					return chai.request(app)
-						.put(`/nightlife/${nightlife.id}`)
+						.put(`/services/${service.id}`)
 						.send(updateData);
 				})
 				.then(function(res) {
 					expect(res.text).to.include(updateData.address);
 					expect(res.text).to.include(updateData.phone);
-					return Nightlife.findById(updateData.id);
+					return Service.findById(updateData.id);
 				})
-				.then(function(nightlife) {
-					expect(nightlife.typeOfVenue).to.equal(updateData.typeOfVenue);
+				.then(function(service) {
+					expect(service.typeOfService).to.equal(updateData.typeOfService);
 				});
 		});
 	});
@@ -119,11 +119,11 @@ describe('Nightlife API resource', function() {
 			const newComment = generateFakeComment();
 			const agent = chai.request.agent(app);
 
-			return Nightlife
+			return Service
 				.findOne()
-				.then(function(nightlife) {
+				.then(function(service) {
 					return agent
-						.post(`/nightlife/${nightlife.id}/comments`)
+						.post(`/services/${service.id}/comments`)
 						.send(newComment)
 						.then(function(res) {
 							expect(res.text).to.include(`${newComment.firstName} from`);
@@ -150,20 +150,17 @@ describe('Nightlife API resource', function() {
 
 		it('should delete a nightlife by id', function() {
 			let nightlife;
-			return Nightlife
+			return Service
 				.findOne()
-				.then(function(_nightlife) {
-					nightlife = _nightlife;
-					console.log(nightlife);
-					// const user = {
-					// 	username: 'admin'
-					// };
-					return chai.request(app).delete(`/nightlife/${nightlife.id}`);
+				.then(function(_service) {
+					service = _service;
+					console.log(service);
+					return chai.request(app).delete(`/services/${service.id}`);
 				})
 				.then(function(res) {
 					console.log(user);
 					expect(res).to.have.status(200);
-					expect(res.text).to.not.include(nightlife.name);
+					expect(res.text).to.not.include(service.name);
 					expect(res.text).to.not.include('<h1 id="index-text">What can I help you find today?</h1>')
 				})
 		})
