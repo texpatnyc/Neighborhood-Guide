@@ -19,7 +19,7 @@
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.3.0",
     "method-override": "^3.0.0",
-    "mongoose": "^5.2.3",
+    "mongoose": "^5.2.9",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
@@ -32,7 +32,7 @@
     "supertest": "^3.1.0"
   },
   "scripts": {
-    "test": "mocha  --timeout 10000",
+    "test": "mocha --timeout 10000",
     "start": "nodemon server.js"
   },
   "repository": {
