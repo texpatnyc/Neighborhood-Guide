@@ -33,7 +33,7 @@
   },
   "scripts": {
     "test": "mocha --timeout 10000",
-    "start": "nodemon server.js"
+    "start": "server.js"
   },
   "repository": {
     "type": "git",
