@@ -5,6 +5,10 @@
   text-decoration: none;
 }
 
+p { 
+  word-break: break-word 
+}
+
 html, body {
   font-family: 'Lato', sans-serif;
   margin: 0;
@@ -131,6 +135,14 @@ h1 {
   text-shadow: 2px 2px 5px black; 
 }
 
+.logInFirst {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 1.5rem;
+  text-shadow: 2px 2px 5px black; 
+}
+
 h4 {
   margin-top: -15px;
   margin-bottom: 7px;
@@ -143,11 +155,6 @@ h4 {
   text-shadow: 1px 1px 3px black;
   text-align: center; 
   line-height: 1.4; 
-}
-
-#addNewLink a {
-  text-decoration: none;
-  color: #fff;
 }
 
 #addNewLink a:hover {
@@ -295,7 +302,8 @@ a.btn:hover {
   border: 1px solid #d73851;
 }
 
-.addNewForm input[type="text"], select, .login input[type="text"] {
+.addNewForm input[type="text"], .addNewForm input[type="url"], select, .login input[type="text"], 
+.login input[type="password"], .login input[type="email"] {
   border: 0;
   width: 90%;
   height: 30px;

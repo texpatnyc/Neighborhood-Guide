@@ -37,6 +37,7 @@ describe('Login/Auth Resource', function() {
           password: 'adminpass' 
         })
         .then(function (res) {
+          console.log(res);
         	expect(res).to.have.cookie('connect.sid');
         	agent.close();
         });

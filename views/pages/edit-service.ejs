@@ -7,6 +7,7 @@
 		<form class="addNewForm" method="post" action="/services/<%= service.id %>?_method=PUT">
 
 			<input type="hidden" name="id" class="addNewTextbox" value="<%= service.id %>">
+			<input type="hidden" name="userId" class="addNewTextbox" value="<%= service.addedBy.userId %>">
 
 			<select id="typeOfService" name="typeOfService" class="addNewDropdown" value="<%= service.typeOfService %>" required>
 				<option value="<%= service.typeOfService %>"><%= service.typeOfService %></option>
@@ -22,9 +23,9 @@
 
 			<input id="address" name="address" type="text" placeholder="Address" value="<%= service.address %>" required></br>
 			<input id="phone" name="phone" type="text" placeholder="Phone #" value="<%= service.phone %>"></br>
-			<input id="webUrl" name="webUrl" type="text" placeholder="Website" value="<%= service.webUrl %>"></br>
-			<input id="photoLink" name="photoLink" type="text" placeholder="Photo Link" value="<%= service.photoLink %>"></br>
-			<textarea id="description" name="description" type="text" placeholder="Brief Description" required><%= service.description %></textarea><br>
+			<input id="webUrl" name="webUrl" type="url" placeholder="Website" value="<%= service.webUrl %>"></br>
+			<input id="photoLink" name="photoLink" type="url" placeholder="Photo Link" value="<%= service.photoLink %>"></br>
+			<textarea id="description" name="description" type="text" placeholder="Brief Description" maxlength="500" required><%= service.description %></textarea><br>
 			<input name="submit" type="submit" value="Submit">
 		</form>
 

@@ -7,6 +7,7 @@
 		<form class="addNewForm" method="post" action="/nightlife/<%= nightlife.id %>?_method=PUT">
 
 			<input type="hidden" name="id" class="addNewTextbox" value="<%= nightlife.id %>">
+			<input type="hidden" name="userId" class="addNewTextbox" value="<%= nightlife.addedBy.userId %>">
 
 			<select id="typeOfVenue" name="typeOfVenue" class="addNewDropdown" value="<%= nightlife.typeOfVenue %>" required>
 				<option value="<%= nightlife.typeOfVenue %>"><%= nightlife.typeOfVenue %></option>
@@ -25,7 +26,7 @@
 			<input id="phone" name="phone" type="text" placeholder="Phone #" value="<%= nightlife.phone %>"></br>
 			<input id="webUrl" name="webUrl" type="text" placeholder="Website" value="<%= nightlife.webUrl %>"></br>
 			<input id="photoLink" name="photoLink" type="text" placeholder="Photo Link" value="<%= nightlife.photoLink %>"></br>
-			<textarea id="description" name="description" type="text" placeholder="Brief Description" required><%= nightlife.description %></textarea><br>
+			<textarea id="description" name="description" type="text" placeholder="Brief Description" maxlength="500" required><%= nightlife.description %></textarea><br>
 			<input name="submit" type="submit" value="Submit">
 		</form>
 

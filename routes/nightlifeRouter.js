@@ -7,16 +7,7 @@ const bodyParser = require('body-parser');
 const {Nightlife, Comment} = require('../models');
 
 function isAdminOrAuthor(req, res, next) {
-	if (req.user && (req.user.username === 'admin' || req.user._id == req.query.commentUserId)) {
-		next();
-	} else {
-		req.flash('error', 'Not Authorized')
-		res.redirect('back')
-	}
-}
-
-function isAdmin(req, res, next) {
-	if (req.user && req.user.username === 'admin') {
+	if (req.user && (req.user.username === 'admin' || req.user._id == req.query.userId || req.user._id == req.body.userId)) {
 		next();
 	} else {
 		req.flash('error', 'Not Authorized')
@@ -84,6 +75,11 @@ router.post('/', (req, res) => {
 			webUrl: req.body.webUrl,
 			photoLink: req.body.photoLink,
 			description: req.body.description,
+			addedBy: {
+					firstName: req.body.firstName,
+					hometown: req.body.hometown,
+					userId: req.body.userId
+				}
 		})
 		.then(req.flash('success', 'Nightlife Successfully Added!'))
 		.then(res.redirect('nightlife'))
@@ -133,7 +129,7 @@ router.delete('/:id/comments/:commentId', isAdminOrAuthor, (req, res) => {
 		});
 });
 
-router.put('/:id', isAdmin, (req, res) => {
+router.put('/:id', isAdminOrAuthor, (req, res) => {
 	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
 		const message = (
 			`Request path id (${req.params.id}) and request body id ` +
@@ -161,7 +157,7 @@ router.put('/:id', isAdmin, (req, res) => {
 		});
 });
 
-router.delete('/:id', isAdmin, (req, res) => {
+router.delete('/:id', isAdminOrAuthor, (req, res) => {
 	Nightlife
 		.findByIdAndRemove(req.params.id)
 		.then(req.flash('success', 'Nightlife Successfully Deleted!'))

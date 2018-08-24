@@ -25,7 +25,7 @@
 
       <form class="addComment" action="/restaurants/<%=restaurant.id%>/comments" method="post">
       	<h3>Add Comment:</h3>
-      	<textarea id="comment" name="comment" placeholder="Tell us what you think!" required></textarea>
+      	<textarea id="comment" name="comment" placeholder="Tell us what you think!" maxlength="300" required></textarea>
         <input class="hiddenInput" name="hometown" type="hidden" value="<%=user.hometown%>">
         <input class="hiddenInput" name="firstName" type="hidden" value="<%=user.firstName%>">
         <input class="hiddenInput" name="userId" type="hidden" value="<%=user._id%>">
@@ -58,13 +58,13 @@
     <% } %>
 
  	</div>
-  <% if((user) && (user.username === 'admin')) {%>
-   	<div class="adminButtons">
+  <% if((user) && ((user.username === 'admin') || (user._id == restaurant.addedBy.userId))) {%>
+     	<div class="adminButtons">
       <form method="GET" action="/restaurants/<%=restaurant.id%>/edit">
         <input class="editBtn" type="submit" value="Edit Listing"></input>
       </form>
 
-      <form method="POST" action="/restaurants/<%=restaurant.id%>?_method=DELETE">
+      <form method="POST" action="/restaurants/<%=restaurant.id%>?_method=DELETE&userId=<%=restaurant.addedBy.userId%>">
         <input class="deleteBtn" type="submit" value="Delete Listing"></input>
       </form>
     </div>

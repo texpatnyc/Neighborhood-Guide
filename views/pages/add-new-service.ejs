@@ -2,6 +2,8 @@
 
 		<h1>Add A New Service:</h1>
 
+<% if (user) {%>
+
 		<form class="search-form">
       <input type="search" placeholder="What service you like to add?" id="search-term" aria-label="service-search-term">
       <input type="submit" value="Auto-Fill">
@@ -11,9 +13,9 @@
 
 		<form class="addNewForm" method="post" action="/services">
 
-			<input id="name" name="name" type="text" class="addNewTextbox" placeholder="Name" required><br>
+			<input id="name" name="name" type="text" class="addNewTextbox" placeholder="Name" maxlength="50" required><br>
 
-			<select id="typeOfService" name="typeOfService" class="addNewDropdown">
+			<select id="typeOfService" name="typeOfService" class="addNewDropdown" required>
 				<option value="">-- Type of Service --</option>
 				<option value="Grocery Store">Grocery Store</option>
 				<option value="Liquor Store">Liquor Store</option>
@@ -26,5 +28,28 @@
 			</select><br>	
 
 		<% include ../partials/add-new-form-part-2 %>
+
+<% } else { %>
+
+    	<div class="login">
+		<h1>Login</h1>
+
+			<%- messages("message", locals) %>
+
+		<form class="loginForm" method="post" action="/auth/login">
+			<input id="username" name="username" type="text" placeholder="Username" required></br>
+			<input id="password" name="password" type="password" placeholder="Password" required></br>
+			<input name="next" type="hidden" value="../services/add-new">
+
+			<input name="submit" type="submit" value="Submit">
+		</form>
+
+		<h2>Don't have an account?<br>
+		<a href="/signup">Sign Up</a></h2>
+
+
+	</div>
+
+    <% } %>
 
 <% include ../partials/add-new-footer %>

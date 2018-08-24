@@ -25,7 +25,7 @@
 
       <form class="addComment" action="/services/<%=service.id%>/comments" method="post">
         <h3>Add Comment:</h3>
-        <textarea id="comment" name="comment" placeholder="Tell us what you think!" required></textarea>
+        <textarea id="comment" name="comment" placeholder="Tell us what you think!" maxlength="300" required></textarea>
         <input class="hiddenInput" name="hometown" type="hidden" value="<%=user.hometown%>">
         <input class="hiddenInput" name="firstName" type="hidden" value="<%=user.firstName%>">
         <input class="hiddenInput" name="userId" type="hidden" value="<%=user._id%>">
@@ -45,7 +45,7 @@
     			<li>
             <span class="commentDate"><%= comment.date %> 
               <% if((user) && ((user.username === 'admin' || user._id == comment.addedBy.userId))) {%>
-                <form class="deleteComment" method="POST" action="/services/<%=service.id%>/comments/<%=comment._id%>?_method=DELETE&commentUserId=<%=comment.addedBy.userId%>">
+                <form class="deleteComment" method="POST" action="/services/<%=service.id%>/comments/<%=comment._id%>?_method=DELETE&userId=<%=comment.addedBy.userId%>">
                   <input type="submit" value="x"></input>
                 </form>
               <%}%>
@@ -59,13 +59,13 @@
     <% } %>
 
  	</div>
-  <% if((user) && (user.username === 'admin')) {%>
+  <% if((user) && ((user.username === 'admin') || (user._id == service.addedBy.userId))) {%>
    	<div class="adminButtons">
       <form method="GET" action="/services/<%=service.id%>/edit">
         <input class="editBtn" type="submit" value="Edit Listing"></input>
       </form>
 
-      <form method="POST" action="/services/<%=service.id%>?_method=DELETE">
+      <form method="POST" action="/services/<%=service.id%>?_method=DELETE&userId=<%=service.addedBy.userId%>">
         <input class="deleteBtn" type="submit" value="Delete Listing"></input>
       </form>
     </div>

@@ -40,6 +40,11 @@ const restaurantSchema = new mongoose.Schema({
 	webUrl: String,
 	photoLink: String,
 	description: String,
+	addedBy: {
+		firstName: String,
+		hometown: String,
+		userId: String
+	},
 	comments: [commentSchema]
 });
 
@@ -51,6 +56,11 @@ const nightlifeSchema = new mongoose.Schema({
 	webUrl: String,
 	photoLink: String,
 	description: String,
+	addedBy: {
+		firstName: String,
+		hometown: String,
+		userId: String
+	},
 	comments: [commentSchema]
 });
 
@@ -62,6 +72,11 @@ const servicesSchema = new mongoose.Schema({
 	webUrl: String,
 	photoLink: String,
 	description: String,
+	addedBy: {
+		firstName: String,
+		hometown: String,
+		userId: String
+	},
 	comments: [commentSchema]
 });
 

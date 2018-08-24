@@ -7,6 +7,7 @@
 		<form class="addNewForm" method="post" action="/restaurants/<%= restaurant.id %>?_method=PUT">
 
 			<input type="hidden" name="id" class="addNewTextbox" value="<%= restaurant.id %>">
+			<input type="hidden" name="userId" class="addNewTextbox" value="<%= restaurant.addedBy.userId %>">
 
 			<select id="cuisine" name="cuisine" class="addNewDropdown" value="<%= restaurant.cuisine %>" required>
 					<option value="<%= restaurant.cuisine %>"><%= restaurant.cuisine %></option>
@@ -24,6 +25,8 @@
 					<option value="Japanese">Japanese</option>
 					<option value="Indian">Indian</option>
 					<option value="Vietnamese">Vietnamese</option>
+					<option value="Delicatessen">Delicatessen</option>
+					<option value="German">German</option>
 					<option value="Other">Other</option>
 				</select><br>	
 
@@ -31,7 +34,7 @@
 			<input id="phone" name="phone" type="text" placeholder="Phone #" value="<%= restaurant.phone %>"></br>
 			<input id="webUrl" name="webUrl" type="text" placeholder="Website" value="<%= restaurant.webUrl %>"></br>
 			<input id="photoLink" name="photoLink" type="text" placeholder="Photo Link" value="<%= restaurant.photoLink %>"></br>
-			<textarea id="description" name="description" type="text" placeholder="Brief Description" required><%= restaurant.description %></textarea><br>
+			<textarea id="description" name="description" type="text" placeholder="Brief Description" maxlength="500" required><%= restaurant.description %></textarea><br>
 			<input name="submit" type="submit" value="Submit">
 		</form>
 

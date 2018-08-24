@@ -1,7 +1,10 @@
-			<input id="address" name="address" type="text" placeholder="Address" required></br>
-			<input id="phone" name="phone" type="text" placeholder="Phone #"></br>
-			<input id="webUrl" name="webUrl" type="text" placeholder="Website"></br>
-			<input id="photoLink" name="photoLink" type="text" placeholder="Photo Link"></br>
-			<textarea id="description" name="description" type="text" placeholder="Brief Description" required></textarea><br>
-			<input name="submit" type="submit" value="Submit">
-		</form>
+	<input id="address" name="address" type="text" placeholder="Address" required></br>
+	<input id="phone" name="phone" type="text" placeholder="Phone #"></br>
+	<input id="webUrl" name="webUrl" type="url" placeholder="Website"></br>
+	<input id="photoLink" name="photoLink" type="url" placeholder="Photo Link"></br>
+	<textarea id="description" name="description" type="text" placeholder="Brief Description" maxlength="500" required></textarea><br>
+	<input class="hiddenInput" name="hometown" type="hidden" value="<%=user.hometown%>">
+	<input class="hiddenInput" name="firstName" type="hidden" value="<%=user.firstName%>">
+	<input class="hiddenInput" name="userId" type="hidden" value="<%=user._id%>">
+	<input name="submit" type="submit" value="Submit">
+</form>

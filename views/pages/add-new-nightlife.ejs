@@ -2,6 +2,8 @@
 
 		<h1>Add A New Nightlife:</h1>
 
+<% if (user) {%>
+
 		<form class="search-form">
       <input type="search" placeholder="What nightlife you like to add?" id="search-term" aria-label="nightlife-search-term">
       <input type="submit" value="Auto-Fill">
@@ -11,7 +13,7 @@
 
 		<form class="addNewForm" method="post" action="/nightlife">
 
-			<input id="name" name="name" type="text" class="addNewTextbox" placeholder="Name" required><br>
+			<input id="name" name="name" type="text" class="addNewTextbox" placeholder="Name" maxlength="50" required><br>
 
 			<select id="typeOfVenue" name="typeOfVenue" class="addNewDropdown" required>
 				<option value="">-- Type of Nightlife --</option>
@@ -27,5 +29,28 @@
 			</select><br>	
 
 		<% include ../partials/add-new-form-part-2 %>
+
+<% } else { %>
+
+    	<div class="login">
+		<h1>Login</h1>
+
+			<%- messages("message", locals) %>
+
+		<form class="loginForm" method="post" action="/auth/login">
+			<input id="username" name="username" type="text" placeholder="Username" required></br>
+			<input id="password" name="password" type="password" placeholder="Password" required></br>
+			<input name="next" type="hidden" value="../nightlife/add-new">
+
+			<input name="submit" type="submit" value="Submit">
+		</form>
+
+		<h2>Don't have an account?<br>
+		<a href="/signup">Sign Up</a></h2>
+
+
+	</div>
+
+    <% } %>
 
 <% include ../partials/add-new-footer %>
