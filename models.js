@@ -85,6 +85,7 @@ const servicesSchema = new mongoose.Schema({
 //------------------------------------------------------------
 
 userSchema.methods.validatePassword = function(password) {
+	console.log(this.password);
   return bcrypt.compare(password, this.password);
 };
 

@@ -22,8 +22,10 @@ router.post('/login', function(req, res, next) {
 				return next(err);
 			}
 			if (req.body.next) {
+				req.flash('success', 'Login Successful')
 				return res.redirect(req.body.next);
 			}
+			req.flash('success', 'Login Successful')
 			return res.redirect('/');
 		})
 	})(req, res, next)

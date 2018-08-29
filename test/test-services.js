@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 const {Service, User} = require('../models');
 const {app} = require('../server');
-const {generateFakeComment} = require('./test-support');
+const {generateFakeComment, seedUserData} = require('./test-support');
 
 chai.use(chaiHttp);
 
@@ -84,31 +84,43 @@ describe('Service API resource', function() {
 		});
 	});
 
-	describe.skip('PUT endpoint', function() {
+	describe('PUT endpoint', function() {
+
+		before(function() {
+			return seedUserData();
+    });
 
 		it('should update fields you send over', function() {
+			const agent = chai.request.agent(app);
 			const updateData = {
 				address: '123 Elm St',
 				phone: '646-555-5555',
-				typeOfService: 'Dogfood'
+				typeOfService: 'Dogfood Maker'
 			};
 
-			return Service
-				.findOne()
-				.then(function(service) {
-					updateData.id = service.id;
-					updateData.name = service.name;
-					return chai.request(app)
-						.put(`/services/${service.id}`)
-						.send(updateData);
+			return agent
+				.post('/auth/login')
+				.send({
+					username: 'admin',
+					password: 'adminpass'
 				})
 				.then(function(res) {
-					expect(res.text).to.include(updateData.address);
-					expect(res.text).to.include(updateData.phone);
-					return Service.findById(updateData.id);
-				})
-				.then(function(service) {
-					expect(service.typeOfService).to.equal(updateData.typeOfService);
+					return Service
+						.findOne()
+						.then(function(service) {
+							updateData.id = service.id;
+							updateData.name = service.name;
+							return agent
+								.put(`/services/${service.id}`)
+								.send(updateData)
+								.then(function(res) {
+									expect(res.text).to.include(updateData.address);
+									expect(res.text).to.include(updateData.phone);
+									expect(res.text).to.include(updateData.typeOfService);
+									agent.close();
+
+								});
+						});
 				});
 		});
 	});
@@ -135,34 +147,36 @@ describe('Service API resource', function() {
 		});
 	});
 
-	describe.skip('DELETE endpoint', function() {
+	describe('DELETE endpoint', function() {
 
-		before(function(done) {
-  		const agent = chai.request.agent(app);
-      return agent
-        .post('/auth/login')
-        .send({ 
-          username: 'admin', 
-          password: 'adminpass' 
-        })
-        agent.close();
+		before(function() {
+			return seedUserData();
         });
 
-		it('should delete a nightlife by id', function() {
-			let nightlife;
-			return Service
-				.findOne()
-				.then(function(_service) {
-					service = _service;
-					console.log(service);
-					return chai.request(app).delete(`/services/${service.id}`);
+		it('should delete a service by id', function() {
+			let service;
+			const agent = chai.request.agent(app);
+			console.log('Delete Test is running');
+			return agent
+				.post('/auth/login')
+				.send({
+					username: 'admin',
+					password: 'adminpass'
 				})
 				.then(function(res) {
-					console.log(user);
-					expect(res).to.have.status(200);
-					expect(res.text).to.not.include(service.name);
-					expect(res.text).to.not.include('<h1 id="index-text">What can I help you find today?</h1>')
+					return Service
+						.findOne()
+						.then(function(service) {
+							return agent
+								.delete(`/services/${service.id}`)
+								.then(function(res) {
+									expect(res).to.have.status(200);
+									expect(res.text).to.not.include(service.name);
+									expect(res.text).to.not.include('<h1 id="index-text">What can I help you find today?</h1>')
+									agent.close();
+								})
+						})
 				})
-		})
+		});
 	});
 });

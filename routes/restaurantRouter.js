@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 		.then(restaurants => {
 			res.render('restaurants', {restaurants: restaurants})
 		})
-.catch(err => {
+		.catch(err => {
 			req.flash('error', 'Internal Server Error');
 			res.redirect('/restaurants')
 		});
@@ -136,7 +136,7 @@ router.put('/:id', isAdminOrAuthor, (req, res) => {
 			`Request path id (${req.params.id}) and request body id ` +
 			`(${req.body.id}) must match`);
 		req.flash('error', message);
-		return res.redirect('/nightlife/:id');
+		return res.redirect('/restaurants/:id');
 	}
 	
 	const toUpdate = {};
@@ -154,6 +154,7 @@ router.put('/:id', isAdminOrAuthor, (req, res) => {
 		.then(res.redirect(`/restaurants/${req.params.id}`))
 		.catch(err => {
 			req.flash('error', 'Internal Server Error');
+			console.log('there is an error here')
 			res.redirect('back')
 		});
 });

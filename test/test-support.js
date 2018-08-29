@@ -2,33 +2,15 @@
 
 const faker = require('faker/locale/en');
 const mongoose = require('mongoose');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
 
 const {User} = require('../models');
 const {app, runServer, closeServer} = require('../server');
 const {TEST_DATABASE_URL} = require('../config');
 
-let seedData = [];
+chai.use(chaiHttp);
 
-function seedUserData() {
-	console.info('Seeding Admin User Data');
-	const users = [
-		{
-			username: 'admin',
-			password: 'adminpass',
-			firstName: 'Admin',
-			lastName: 'Admin',
-			hometown: 'Outer Space'
-		},
-		{
-			username: 'testUser',
-			password: 'testPassword',
-			firstName: 'Joe',
-			lastName: 'Tester',
-			hometown: 'Test Town'   
-		}
-	];
-	return User.insertMany(users)
-}
 
 function generateFakeComment() {
 	const output = {
@@ -40,6 +22,36 @@ function generateFakeComment() {
 	return output;
 }
 
+function seedUserData(pass) {
+  console.info('Seeding User Data');
+  const admin = {
+      username: 'admin',
+      password: 'adminpass',
+      firstName: 'Admin',
+      lastName: 'Admin',
+      hometown: 'Outer Space'
+    };
+
+  const agent = chai.request.agent(app);
+
+  return agent
+    .post('/users')
+    .send(admin)
+    .then(function(res) {
+      agent.close();
+    })
+}
+
+function logInAdmin() {
+	const agent = chai.request.agent(app);
+	return agent
+        .post('/auth/login')
+        .send({ 
+          username: 'admin', 
+          password: 'adminpass' 
+        })
+}
+
 function tearDownDb() {
 	console.warn('Deleting database');
 	return mongoose.connection.dropDatabase();
@@ -49,9 +61,9 @@ function tearDownDb() {
 		return runServer(TEST_DATABASE_URL);
 	});
 
-	before(function() {
-		return seedUserData();
-	});
+	// beforeEach(function() {
+	// 	return seedUserData();
+	// });
 
 	afterEach(function() {
 		return tearDownDb();
@@ -61,4 +73,4 @@ function tearDownDb() {
 		return closeServer();
 	});
 
-module.exports = {generateFakeComment};
+module.exports = {generateFakeComment, seedUserData, logInAdmin, tearDownDb};

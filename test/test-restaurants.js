@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 const {Restaurant, User} = require('../models');
 const {app} = require('../server');
-const {generateFakeComment} = require('./test-support');
+const {generateFakeComment, seedUserData, logInAdmin, tearDownDb } = require('./test-support');
 
 chai.use(chaiHttp);
 
@@ -84,31 +84,43 @@ describe('Restaurant API resource', function() {
 		});
 	});
 
-	describe.skip('PUT endpoint', function() {
+	describe('PUT endpoint', function() {
+
+		before(function() {
+			return seedUserData();
+    });
 
 		it('should update fields you send over', function() {
+			const agent = chai.request.agent(app);
 			const updateData = {
 				address: '123 Elm St',
 				phone: '646-555-5555',
 				cuisine: 'Dogfood'
 			};
 
-			return Restaurant
-				.findOne()
-				.then(function(restaurant) {
-					updateData.id = restaurant.id;
-					updateData.name = restaurant.name;
-					return chai.request(app)
-						.put(`/restaurants/${restaurant.id}`)
-						.send(updateData);
+			return agent
+				.post('/auth/login')
+				.send({
+					username: 'admin',
+					password: 'adminpass'
 				})
 				.then(function(res) {
-					expect(res.text).to.include(updateData.address);
-					expect(res.text).to.include(updateData.phone);
-					return Restaurant.findById(updateData.id);
-				})
-				.then(function(restaurant) {
-					expect(restaurant.cuisine).to.equal(updateData.cuisine);
+					return Restaurant
+						.findOne()
+						.then(function(restaurant) {
+							updateData.id = restaurant.id;
+							updateData.name = restaurant.name;
+							return agent
+								.put(`/restaurants/${restaurant.id}`)
+								.send(updateData)
+								.then(function(res) {
+									expect(res.text).to.include(updateData.address);
+									expect(res.text).to.include(updateData.phone);
+									expect(res.text).to.include(updateData.cuisine);
+									agent.close();
+
+								});
+						});
 				});
 		});
 	});
@@ -135,34 +147,36 @@ describe('Restaurant API resource', function() {
 		});
 	});
 
-	describe.skip('DELETE endpoint', function() {
+	describe('DELETE endpoint', function() {
 
-		before(function(done) {
-  		const agent = chai.request.agent(app);
-      return agent
-        .post('/auth/login')
-        .send({ 
-          username: 'admin', 
-          password: 'adminpass' 
-        })
-        agent.close();
+		before(function() {
+			return seedUserData();
         });
 
-		it('should delete a nightlife by id', function() {
-			let nightlife;
-			return Restaurant
-				.findOne()
-				.then(function(_restaurant) {
-					restaurant = _restaurant;
-					console.log(restaurant);
-					return chai.request(app).delete(`/restaurants/${restaurant.id}`);
+		it('should delete a restaurant by id', function() {
+			let restaurant;
+			const agent = chai.request.agent(app);
+			console.log('Delete Test is running');
+			return agent
+				.post('/auth/login')
+				.send({
+					username: 'admin',
+					password: 'adminpass'
 				})
 				.then(function(res) {
-					console.log(user);
-					expect(res).to.have.status(200);
-					expect(res.text).to.not.include(restaurant.name);
-					expect(res.text).to.not.include('<h1 id="index-text">What can I help you find today?</h1>')
+					return Restaurant
+						.findOne()
+						.then(function(restaurant) {
+							return agent
+								.delete(`/restaurants/${restaurant.id}`)
+								.then(function(res) {
+									expect(res).to.have.status(200);
+									expect(res.text).to.not.include(restaurant.name);
+									expect(res.text).to.not.include('<h1 id="index-text">What can I help you find today?</h1>')
+									agent.close();
+								})
+						})
 				})
-		})
+		});
 	});
 });
