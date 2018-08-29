@@ -64,7 +64,7 @@ Sign Up / Register Page:
 
 - [Live Demo](https://hidden-oasis-51430.herokuapp.com/)
 
-*Test User Login/Pass*
+### Test User Login/Pass
 
 * Login: spongebob
 * Password: squarepants
