@@ -6,6 +6,7 @@ const googleApiKey = 'AIzaSyDaTY5FdfkJgHZpvxf9OwEdN6bRlgeS7TY';
 
 let selectedBusiness;
 let placeId;
+let photoref;
 
 function activatePlacesSearch() {
     const input = document.getElementById('search-term');
@@ -27,7 +28,7 @@ function autoFillForm(jsonObj) {
 	document.getElementById('address').value = jsonObj.formatted_address;
 	document.getElementById('phone').value = jsonObj.formatted_phone_number;
 	document.getElementById('webUrl').value = jsonObj.website;
-	document.getElementById('photoLink').value = jsonObj.photos[0].getUrl({'maxWidth': 600, 'maxHeight': 600});
+	document.getElementById('photoLink').value = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${photoRef}&key=${googleApiKey}`;
 }
 
 function getPlaceDetails(query) {
@@ -36,7 +37,9 @@ function getPlaceDetails(query) {
 	service.getDetails({
     	placeId: query
   	}, function (place, status) {
-	autoFillForm(place);
+  		let googlePhoto = place.photos[0].getUrl({'maxWidth': 600, 'maxHeight': 600});
+  		photoRef = googlePhoto.split('?1s')[1].split('&')[0];
+			autoFillForm(place);
   });
 }
 
