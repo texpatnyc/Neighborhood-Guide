@@ -4,7 +4,7 @@
 
 	<div class="single-listing">
     <% if(restaurant.photoLink) { %>
-      <img src="<%= restaurant.photoLink %>" class="center-cropped-single" />
+      <img src="<%= restaurant.photoLink %>" class="center-cropped-single" alt="<%= restaurant.name%> image" />
     <% } %>
     <h1><%= restaurant.name %></h1>
     <h2>(<%= restaurant.cuisine %>)</h2>

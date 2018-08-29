@@ -6,11 +6,11 @@
 		<%- messages("message", locals) %>
 
 		<form class="signupForm" method="post" action="/users">
-			<input id="username" name="username" type="text" placeholder="Username" required></br>
-			<input id="password" name="password" type="password" placeholder="Password" required></br>
-			<input id="firstName" name="firstName" type="text" placeholder="First Name" required></br>
-			<input id="lastName" name="lastName" type="text" placeholder="Last Name"></br>
-			<input id="hometown" name="hometown" type="text" placeholder="Hometown" required></br>
+			<input id="username" name="username" type="text" aria-label="username" placeholder="Username" required></br>
+			<input id="password" name="password" type="password" aria-label="password" placeholder="Password" required></br>
+			<input id="firstName" name="firstName" type="text" aria-label="first name" placeholder="First Name" required></br>
+			<input id="lastName" name="lastName" type="text" aria-label="last name" placeholder="Last Name"></br>
+			<input id="hometown" name="hometown" type="text" aria-label="hometown" placeholder="Hometown" required></br>
 			<input name="submit" type="submit" value="Submit">
 		</form>
 

@@ -12,7 +12,7 @@
 	  	<li class="listing">
   			<a href="/services/<%= service._id %>">
   				<% if(service.photoLink) { %>
-	  				<img src="<%= service.photoLink %>" class="center-cropped" />
+	  				<img src="<%= service.photoLink %>" class="center-cropped" alt="<%= service.name%> image" />
 	  			<% } %>
 		    	<h3><%- service.name.toUpperCase() %></h3>
 		    	<h4>(<%= service.typeOfService %>)</h4>

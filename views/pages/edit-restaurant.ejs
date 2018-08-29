@@ -9,7 +9,7 @@
 			<input type="hidden" name="id" class="addNewTextbox" value="<%= restaurant.id %>">
 			<input type="hidden" name="userId" class="addNewTextbox" value="<%= restaurant.addedBy.userId %>">
 
-			<select id="cuisine" name="cuisine" class="addNewDropdown" value="<%= restaurant.cuisine %>" required>
+			<select id="cuisine" aria-label="Type of Cuisine" name="cuisine" class="addNewDropdown" value="<%= restaurant.cuisine %>" required>
 					<option value="<%= restaurant.cuisine %>"><%= restaurant.cuisine %></option>
 					<option value="CoffeeShop">CoffeeShop</option>
 					<option value="Mexican">Mexican</option>
@@ -30,12 +30,12 @@
 					<option value="Other">Other</option>
 				</select><br>	
 
-			<input id="address" name="address" type="text" placeholder="Address" value="<%= restaurant.address %>" required></br>
-			<input id="phone" name="phone" type="text" placeholder="Phone #" value="<%= restaurant.phone %>"></br>
-			<input id="webUrl" name="webUrl" type="text" placeholder="Website" value="<%= restaurant.webUrl %>"></br>
-			<input id="photoLink" name="photoLink" type="text" placeholder="Photo Link" value="<%= restaurant.photoLink %>"></br>
-			<textarea id="description" name="description" type="text" placeholder="Brief Description" maxlength="500" required><%= restaurant.description %></textarea><br>
-			<input name="submit" type="submit" value="Submit">
+			<input id="address" aria-label="Address" name="address" type="text" placeholder="Address" value="<%= restaurant.address %>" required></br>
+			<input id="phone" name="phone" aria-label="Phone #" type="text" placeholder="Phone #" value="<%= restaurant.phone %>"></br>
+			<input id="webUrl" name="webUrl" aria-label="Web URL" type="text" placeholder="Website" value="<%= restaurant.webUrl %>"></br>
+			<input id="photoLink" name="photoLink" aria-label="Photo Link" type="text" placeholder="Photo Link" value="<%= restaurant.photoLink %>"></br>
+			<textarea id="description" name="description" aria-label="Description" type="text" placeholder="Brief Description" maxlength="500" required><%= restaurant.description %></textarea><br>
+			<input name="submit" aria-label="Submit" type="submit" value="Submit">
 		</form>
 
 <% include ../partials/add-new-footer %>

@@ -12,7 +12,7 @@
 		  	<li class="listing">
   			<a href="/restaurants/<%= restaurant._id %>">
   				<% if(restaurant.photoLink) { %>
-	  				<img src="<%= restaurant.photoLink %>" class="center-cropped" />
+	  				<img src="<%= restaurant.photoLink %>" class="center-cropped" alt="<%= restaurant.name%> image" />
 	  			<% } %>
 		    	<h3><%- restaurant.name.toUpperCase() %></h3>
 		    	<h4>(<%= restaurant.cuisine %>)</h4>

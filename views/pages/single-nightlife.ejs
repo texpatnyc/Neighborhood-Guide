@@ -4,7 +4,7 @@
 
 	<div class="single-listing">
     <% if(nightlife.photoLink) { %>
-      <img src="<%= nightlife.photoLink %>" class="center-cropped-single" />
+      <img src="<%= nightlife.photoLink %>" class="center-cropped-single" alt="<%= nightlife.name%> image" />
     <% } %>
     <h1><%= nightlife.name %></h1>
     <h2>(<%= nightlife.typeOfVenue %>)</h2>

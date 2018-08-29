@@ -9,7 +9,7 @@
 			<input type="hidden" name="id" class="addNewTextbox" value="<%= nightlife.id %>">
 			<input type="hidden" name="userId" class="addNewTextbox" value="<%= nightlife.addedBy.userId %>">
 
-			<select id="typeOfVenue" name="typeOfVenue" class="addNewDropdown" value="<%= nightlife.typeOfVenue %>" required>
+			<select id="typeOfVenue" aria-label="Name" name="typeOfVenue" class="addNewDropdown" value="<%= nightlife.typeOfVenue %>" required>
 				<option value="<%= nightlife.typeOfVenue %>"><%= nightlife.typeOfVenue %></option>
 				<option value="Bar">Bar</option>
 				<option value="Dive Bar">Dive Bar</option>
@@ -22,12 +22,12 @@
 				<option value="Other">Other</option>
 			</select><br>	
 
-			<input id="address" name="address" type="text" placeholder="Address" value="<%= nightlife.address %>" required></br>
-			<input id="phone" name="phone" type="text" placeholder="Phone #" value="<%= nightlife.phone %>"></br>
-			<input id="webUrl" name="webUrl" type="text" placeholder="Website" value="<%= nightlife.webUrl %>"></br>
-			<input id="photoLink" name="photoLink" type="text" placeholder="Photo Link" value="<%= nightlife.photoLink %>"></br>
-			<textarea id="description" name="description" type="text" placeholder="Brief Description" maxlength="500" required><%= nightlife.description %></textarea><br>
-			<input name="submit" type="submit" value="Submit">
+			<input id="address" aria-label="Address" name="address" type="text" placeholder="Address" value="<%= nightlife.address %>" required></br>
+			<input id="phone" aria-label="Phone #" name="phone" type="text" placeholder="Phone #" value="<%= nightlife.phone %>"></br>
+			<input id="webUrl" aria-label="Web URL" name="webUrl" type="text" placeholder="Website" value="<%= nightlife.webUrl %>"></br>
+			<input id="photoLink" aria-label="Photo Link" name="photoLink" type="text" placeholder="Photo Link" value="<%= nightlife.photoLink %>"></br>
+			<textarea id="description" aria-label="Description" name="description" type="text" placeholder="Brief Description" maxlength="500" required><%= nightlife.description %></textarea><br>
+			<input name="submit" aria-label="Submit" type="submit" value="Submit">
 		</form>
 
 <% include ../partials/add-new-footer %>

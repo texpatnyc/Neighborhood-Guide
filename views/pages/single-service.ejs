@@ -4,7 +4,7 @@
 
 	<div class="single-listing">
     <% if(service.photoLink) { %>
-		  <img src="<%= service.photoLink %>" class="center-cropped-single" />
+		  <img src="<%= service.photoLink %>" class="center-cropped-single" alt="<%= service.name%> image" />
     <% } %>
   	<h1><%= service.name %></h1>
   	<h2>(<%= service.typeOfService %>)</h2>
